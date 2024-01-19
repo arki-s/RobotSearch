@@ -2,6 +2,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Login from './App/Screens/LoginScreen/Login';
 import { useFonts } from 'expo-font';
+import { ClerkProvider } from "@clerk/clerk-expo";
+import { CLERK_PUBLISHABLE_KEY } from '@env';
 // import * as SplashScreen from 'expo-splash-screen';
 // import { useCallback } from 'react';
 
@@ -23,11 +25,15 @@ export default function App() {
   //   return null;
   // }
 
+
+
   return (
+    // <ClerkProvider>
     <View style={styles.container}>
      <Login />
       <StatusBar style="auto" />
     </View>
+    // </ClerkProvider>
   );
 }
 

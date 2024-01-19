@@ -22,6 +22,8 @@ export default function Login() {
             justifyContent: "center",
           }}
         >
+          {/* <Text style={styles.btn}>はじめる</Text> */}
+
           <Text style={styles.btn}>登録する</Text>
           <Text style={styles.btn}>ログイン</Text>
         </View>
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 22,
     padding: 10,
     paddingBottom: 15,
-    marginHorizontal: 5,
+    marginHorizontal: 15,
     color: Colors.BLACK,
     borderRadius: 99,
     backgroundColor: Colors.SECONDARY_LIGHT,
