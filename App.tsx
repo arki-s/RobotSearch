@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ClerkProvider, SignedIn, SignedOut, useSignUp } from "@clerk/clerk-expo";
 import { CLERK_PUBLISHABLE_KEY } from '@env';
 import Signup from './App/Screens/Signup';
+import Login from './App/Screens/Login';
+import TabNavigation from './App/Navigations/TabNavigation';
 
 
 export default function App() {
@@ -12,14 +14,17 @@ export default function App() {
     <ClerkProvider publishableKey={(CLERK_PUBLISHABLE_KEY).trim()}>
       <SafeAreaView>
         <GestureHandlerRootView>
+
           <SignedIn>
             <NavigationContainer>
-              <Text>You are Signed in</Text>
+              <TabNavigation />
             </NavigationContainer>
           </SignedIn>
+
           <SignedOut>
-            <Signup />
+            <Login />
           </SignedOut>
+
         </GestureHandlerRootView>
       </SafeAreaView>
     </ClerkProvider>

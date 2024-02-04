@@ -1,6 +1,8 @@
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSignIn } from "@clerk/clerk-expo";
 import React from 'react'
+import { loginStyles } from "../Styles/loginStyles";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function Login() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -27,28 +29,31 @@ export default function Login() {
   };
 
   return (
-    <View>
-      <View>
+    <View style={loginStyles.container}>
+      <View style={loginStyles.inputContainer}>
         <TextInput
           autoCapitalize="none"
           value={emailAddress}
           placeholder="Email..."
           onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+          style={{ backgroundColor: '#ffffff', marginTop: 30 }}
         />
       </View>
 
-      <View>
+      <View style={loginStyles.inputContainer}>
         <TextInput
           value={password}
           placeholder="Password..."
           secureTextEntry={true}
           onChangeText={(password) => setPassword(password)}
+          style={{ backgroundColor: '#ffffff', marginTop: 30 }}
         />
       </View>
 
-      <TouchableOpacity onPress={onSignInPress}>
-        <Text>Sign in</Text>
+      <TouchableOpacity onPress={onSignInPress} style={loginStyles.inputContainer}>
+        <Text style={{ color: '#ffffff' }}>Login</Text>
       </TouchableOpacity>
+
     </View>
   );
 }

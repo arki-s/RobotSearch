@@ -1,6 +1,7 @@
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useSignUp } from "@clerk/clerk-expo";
+import { loginStyles } from "../Styles/loginStyles";
 
 export default function Signup() {
   const { isLoaded, signUp, setActive } = useSignUp();
@@ -50,7 +51,7 @@ export default function Signup() {
 
 
   return (
-    <View>
+    <View style={loginStyles.container}>
       {!pendingVerification && (
         <View>
           <View>
