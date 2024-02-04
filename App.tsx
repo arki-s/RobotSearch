@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { ClerkProvider, SignedIn, SignedOut, useSignUp } from "@clerk/clerk-expo";
 import { CLERK_PUBLISHABLE_KEY } from '@env';
+import Signup from './App/Screens/Signup';
 
 
 export default function App() {
@@ -11,14 +12,14 @@ export default function App() {
     <ClerkProvider publishableKey={(CLERK_PUBLISHABLE_KEY).trim()}>
       <SafeAreaView>
         <GestureHandlerRootView>
-          <NavigationContainer>
-            <SignedIn>
+          <SignedIn>
+            <NavigationContainer>
               <Text>You are Signed in</Text>
-            </SignedIn>
-            <SignedOut>
-              <Text>You are Signed out</Text>
-            </SignedOut>
-          </NavigationContainer>
+            </NavigationContainer>
+          </SignedIn>
+          <SignedOut>
+            <Signup />
+          </SignedOut>
         </GestureHandlerRootView>
       </SafeAreaView>
     </ClerkProvider>
