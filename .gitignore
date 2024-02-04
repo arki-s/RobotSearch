@@ -35,6 +35,6 @@ yarn-error.*
 *.tsbuildinfo
 
 .env
-.env.js
+env.js
 config.env
 env.d.ts
