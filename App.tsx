@@ -7,9 +7,14 @@ import { CLERK_PUBLISHABLE_KEY } from '@env';
 import Signup from './App/Screens/Signup';
 import Login from './App/Screens/Login';
 import TabNavigation from './App/Navigations/TabNavigation';
+import { useFonts } from 'expo-font';
 
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    'kaisei': require('./assets/fonts/KaiseiOpti-Medium.ttf')
+  });
+
   return (
     <ClerkProvider publishableKey={(CLERK_PUBLISHABLE_KEY).trim()}>
       <SafeAreaView>
