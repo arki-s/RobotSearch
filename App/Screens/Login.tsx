@@ -1,8 +1,9 @@
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useSignIn } from "@clerk/clerk-expo";
 import React from 'react'
 import { loginStyles } from "../Styles/loginStyles";
 import { ScrollView } from "react-native-gesture-handler";
+import { globalStyles } from "../Styles/globalStyles";
 
 export default function Login() {
   const { signIn, setActive, isLoaded } = useSignIn();
@@ -30,29 +31,41 @@ export default function Login() {
 
   return (
     <View style={loginStyles.container}>
-      <View style={loginStyles.inputContainer}>
-        <TextInput
-          autoCapitalize="none"
-          value={emailAddress}
-          placeholder="Email..."
-          onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
-          style={{ backgroundColor: '#ffffff', marginTop: 30 }}
-        />
+
+      <Text style={loginStyles.catchText}>ロボットをより身近に</Text>
+      <Image source={require('../../assets/images/connection.jpg')} style={loginStyles.img} />
+
+
+      <View style={loginStyles.loginContainer}>
+        <Text style={loginStyles.expText}>ロボットの活用が進んできていますが、個人単位での活用はまだまだ発展途上。これはロボットをより身近に感じ、新たな社会への一歩を踏み出すためのサービスです。</Text>
+
+        <View style={{ alignItems: 'center', marginTop: 16, }}>
+          <TextInput
+            autoCapitalize="none"
+            value={emailAddress}
+            placeholder="Email..."
+            onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+            style={loginStyles.loginInput}
+          />
+
+
+          <TextInput
+            value={password}
+            placeholder="Password..."
+            secureTextEntry={true}
+            onChangeText={(password) => setPassword(password)}
+            style={loginStyles.loginInput}
+          />
+
+          <TouchableOpacity onPress={onSignInPress} style={loginStyles.loginBtn}>
+            <Text style={loginStyles.loginText}>ログイン</Text>
+          </TouchableOpacity>
+
+        </View>
+
+
       </View>
 
-      <View style={loginStyles.inputContainer}>
-        <TextInput
-          value={password}
-          placeholder="Password..."
-          secureTextEntry={true}
-          onChangeText={(password) => setPassword(password)}
-          style={{ backgroundColor: '#ffffff', marginTop: 30 }}
-        />
-      </View>
-
-      <TouchableOpacity onPress={onSignInPress} style={loginStyles.inputContainer}>
-        <Text style={{ color: '#ffffff' }}>Login</Text>
-      </TouchableOpacity>
 
     </View>
   );

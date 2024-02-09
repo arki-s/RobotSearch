@@ -1,7 +1,8 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useSignUp } from "@clerk/clerk-expo";
 import { loginStyles } from "../Styles/loginStyles";
+import { globalStyles } from '../Styles/globalStyles';
 
 export default function Signup() {
   const { isLoaded, signUp, setActive } = useSignUp();
