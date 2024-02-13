@@ -14,7 +14,7 @@ export const loginStyles = StyleSheet.create({
   },
 
   img:{
-    height:400,
+    height:380,
     width:'100%',
     objectFit:'contain',
     marginBottom:20,
@@ -23,7 +23,7 @@ export const loginStyles = StyleSheet.create({
 
   loginContainer:{
     width:'100%',
-    height:320,
+    height:340,
     backgroundColor:Colors.PRIMARY,
     borderTopStartRadius:20,
     borderTopEndRadius:20,
@@ -42,7 +42,6 @@ export const loginStyles = StyleSheet.create({
     backgroundColor:Colors.SECONDARY,
     paddingHorizontal:10,
     borderRadius:30,
-
   },
 
   loginText:{
