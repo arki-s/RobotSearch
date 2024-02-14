@@ -29,7 +29,7 @@ export const homeStyles = StyleSheet.create({
     display:'flex',
     flexDirection:'row',
     justifyContent:'center',
-    gap:5,
+    gap:8,
     alignItems:'center',
     marginBottom:10,
   },
@@ -37,8 +37,9 @@ export const homeStyles = StyleSheet.create({
   textInput:{
     backgroundColor:Colors.WHITE,
     padding:8,
+    paddingHorizontal:12,
     marginVertical:5,
-    width:200,
+    width:270,
     borderRadius:10,
   },
 

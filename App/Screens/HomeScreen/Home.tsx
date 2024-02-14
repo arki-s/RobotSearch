@@ -3,6 +3,7 @@ import React from 'react'
 import { homeStyles } from '../../Styles/homeStyles'
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from '../../Styles/Colors';
+import Slider from './Slider';
 
 export default function Home() {
 
@@ -14,7 +15,7 @@ export default function Home() {
           <Text style={homeStyles.headerText}>Robot Search</Text>
         </View>
         <View style={homeStyles.headerSub2}>
-          <TextInput placeholder='search' style={homeStyles.textInput} />
+          <TextInput placeholder='Search' style={homeStyles.textInput} />
           <TouchableOpacity>
             <FontAwesome
               name="search"
@@ -28,7 +29,7 @@ export default function Home() {
 
       <View style={homeStyles.contentsContainer}>
         <View>
-          <Text>広告エリア</Text>
+          <Slider />
         </View>
 
         <View>
