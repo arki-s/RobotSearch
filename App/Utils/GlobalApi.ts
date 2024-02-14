@@ -1,8 +1,6 @@
 import { MASTER_URL } from '@env';
 import { request, gql } from 'graphql-request'
 
-const masterUrl = (MASTER_URL).trim();
-
 const getSlider=async ()=>{
   const query = gql`
   query getSlider {
@@ -15,7 +13,7 @@ const getSlider=async ()=>{
     }
   }
   `
-const result = await request(masterUrl, query);
+const result:any = await request(MASTER_URL, query);
 return result
 }
 

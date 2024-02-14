@@ -15,7 +15,7 @@ export default function Home() {
           <Text style={homeStyles.headerText}>Robot Search</Text>
         </View>
         <View style={homeStyles.headerSub2}>
-          <TextInput placeholder='Search' style={homeStyles.textInput} />
+          <TextInput placeholder='検索' style={homeStyles.textInput} />
           <TouchableOpacity>
             <FontAwesome
               name="search"

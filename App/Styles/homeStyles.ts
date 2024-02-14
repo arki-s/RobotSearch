@@ -41,6 +41,7 @@ export const homeStyles = StyleSheet.create({
     marginVertical:5,
     width:270,
     borderRadius:10,
+    fontFamily:'kaisei',
   },
 
   searchIcon:{
@@ -67,6 +68,18 @@ export const homeStyles = StyleSheet.create({
   },
 
   contentsContainer:{
+  },
+
+  slider: {
+    marginVertical: 10,
+    marginRight: 10,
+  },
+
+  sliderImage: {
+    width: 250,
+    height: 130,
+    borderRadius: 10,
+    objectFit: 'cover',
   }
 
 
