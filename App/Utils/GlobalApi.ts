@@ -34,6 +34,30 @@ const getCategory = async ()=>{
   return result
 }
 
+const getRobot = async () =>{
+  const query = `
+  query getRobot {
+    robots {
+      cost
+      email
+      id
+      images {
+        url
+      }
+      name
+      about
+      contactPerson
+      category {
+        type
+      }
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
-  getSlider, getCategory,
+  getSlider, getCategory, getRobot,
 }

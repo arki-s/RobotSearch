@@ -72,8 +72,8 @@ export const homeStyles = StyleSheet.create({
   },
 
   sliderImage: {
-    width: 250,
-    height: 130,
+    width: 270,
+    height: 150,
     borderRadius: 10,
     objectFit: 'cover',
   },

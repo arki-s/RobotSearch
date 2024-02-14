@@ -5,6 +5,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import Colors from '../../Styles/Colors';
 import Slider from './Slider';
 import Categories from './Categories';
+import RobotList from './RobotList';
 
 export default function Home() {
 
@@ -30,11 +31,7 @@ export default function Home() {
       <View style={homeStyles.container}>
         <Slider />
         <Categories />
-
-
-        <View>
-          <Text>新着エリア</Text>
-        </View>
+        <RobotList />
       </View>
 
     </View>

@@ -11,12 +11,12 @@ export default function Heading({ title }: { title: string }) {
 
 const styles = StyleSheet.create({
   heading: {
-    marginTop: 10,
+    marginVertical: 8,
     marginLeft: 15,
   },
 
   headingText: {
     fontFamily: 'kaisei',
-    fontSize: 22,
+    fontSize: 24,
   }
 })
