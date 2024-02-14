@@ -87,6 +87,7 @@ export const homeStyles = StyleSheet.create({
     width:75,
     padding:5,
     marginHorizontal:10,
+    marginBottom:5,
   },
 
   categoryImg:{
@@ -99,6 +100,37 @@ export const homeStyles = StyleSheet.create({
   categoryText:{
     fontFamily:'kaisei',
   },
+
+  robotContainer:{
+    marginTop:10,
+    backgroundColor:Colors.WHITE,
+    padding:8,
+    marginRight:8,
+    borderRadius:10,
+    alignItems:'center',
+    width:180,
+  },
+
+  robotImg:{
+    height:120,
+    width:150,
+    objectFit:'cover',
+    borderRadius:10,
+  },
+
+  robotText:{
+    fontFamily:'kaisei',
+    fontSize:18,
+    marginVertical:8,
+    color:Colors.BLACK,
+  },
+
+  robotCostText:{
+    fontFamily:'kaisei',
+    fontSize:16,
+    color:Colors.PRIMARY,
+  }
+
 
 
 })
