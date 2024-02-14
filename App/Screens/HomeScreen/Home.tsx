@@ -4,11 +4,12 @@ import { homeStyles } from '../../Styles/homeStyles'
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from '../../Styles/Colors';
 import Slider from './Slider';
+import Categories from './Categories';
 
 export default function Home() {
 
   return (
-    <View style={homeStyles.container}>
+    <View>
       <View style={homeStyles.header}>
         <View style={homeStyles.headerSub}>
           <Image source={require('../../../assets/images/ロボットアイコン.png')} style={homeStyles.headerLogo} />
@@ -26,17 +27,10 @@ export default function Home() {
           </TouchableOpacity>
         </View>
       </View>
+      <View style={homeStyles.container}>
+        <Slider />
+        <Categories />
 
-      <View style={homeStyles.contentsContainer}>
-        <View>
-          <Slider />
-        </View>
-
-        <View>
-          <Text>
-            カテゴリエリア
-          </Text>
-        </View>
 
         <View>
           <Text>新着エリア</Text>

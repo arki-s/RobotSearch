@@ -14,7 +14,7 @@ export default function Slider() {
 
   const getSliders = () => {
     GlobalApi.getSlider().then((resp) => {
-      console.log("resp", resp?.sliders);
+      // console.log("resp", resp?.sliders);
       setSlider(resp?.sliders)
     }).catch((error) => {
       console.log("API call error!");
@@ -31,7 +31,7 @@ export default function Slider() {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <View style={homeStyles.slider}>
-            <Image source={{ uri: item?.image?.url }} style={homeStyles.sliderImage} />
+            <Image source={item['image'] && { uri: item['image']['url'] }} style={homeStyles.sliderImage} />
           </View>
         )} />
 

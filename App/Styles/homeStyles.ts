@@ -3,8 +3,7 @@ import Colors from "./Colors";
 
 export const homeStyles = StyleSheet.create({
   container:{
-    flex:1,
-    alignItems:'center',
+    padding:5,
   },
 
   header:{
@@ -67,9 +66,6 @@ export const homeStyles = StyleSheet.create({
     fontFamily:'kaisei',
   },
 
-  contentsContainer:{
-  },
-
   slider: {
     marginVertical: 10,
     marginRight: 10,
@@ -80,7 +76,29 @@ export const homeStyles = StyleSheet.create({
     height: 130,
     borderRadius: 10,
     objectFit: 'cover',
-  }
+  },
+
+  categoryContainer:{
+    marginTop:15,
+    alignItems:'center',
+    backgroundColor:Colors.WHITE,
+    borderRadius:99,
+    height:75,
+    width:75,
+    padding:5,
+    marginHorizontal:10,
+  },
+
+  categoryImg:{
+    height:45,
+    width:45,
+    objectFit:'contain',
+
+  },
+
+  categoryText:{
+    fontFamily:'kaisei',
+  },
 
 
 })
