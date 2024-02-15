@@ -58,6 +58,26 @@ const getRobot = async () =>{
   return result
 }
 
+const getReview = async ()=>{
+  const qurey = `
+  query getReview {
+    reviews {
+      id
+      name
+      comment
+      rating
+      date
+      robot {
+        name
+      }
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, qurey);
+  return result
+}
+
 export default {
-  getSlider, getCategory, getRobot,
+  getSlider, getCategory, getRobot, getReview,
 }

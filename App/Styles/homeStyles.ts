@@ -11,11 +11,12 @@ const csheight = height * 0.80;
 export const homeStyles = ScaledSheet.create({
   container:{
     padding:'5@msr',
+    flexGrow:1,
     // display:'flex',
     // flexDirection:'column',
     // justifyContent:'space-around',
     // backgroundColor:'#000000',
-    height:csheight,
+    // height:csheight,
   },
 
   header:{
@@ -114,7 +115,7 @@ export const homeStyles = ScaledSheet.create({
   },
 
   robotContainer:{
-    marginTop:'10@vs',
+    marginVertical:'10@vs',
     backgroundColor:Colors.WHITE,
     padding:8,
     marginRight:8,
@@ -141,7 +142,29 @@ export const homeStyles = ScaledSheet.create({
     fontFamily:'kaisei',
     fontSize:14,
     color:Colors.PRIMARY,
-  }
+  },
+
+  reviewContainer:{
+    padding:10,
+    marginVertical:'10@vs',
+    backgroundColor:Colors.WHITE,
+    borderRadius:10,
+    width:'170@s',
+    marginRight:'10@s',
+  },
+
+  reviewTextName:{
+    fontFamily:'kaisei',
+    fontSize:'20@msr',
+    marginBottom:'5@vs',
+
+  },
+
+  reviewText:{
+    fontFamily:'kaisei',
+    fontSize:'16@msr',
+
+  },
 
 
 

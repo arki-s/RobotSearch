@@ -8,6 +8,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Styles/Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
+import Booking from '../Screens/BookingScreen/Booking';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,6 +24,11 @@ export default function TabNavigation() {
         tabBarLabel: ({ color }) => (
           <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Robots</Text>),
         tabBarIcon: ({ color, size }) => (<FontAwesome5 name="robot" size={size} color={color} />)
+      }} />
+      <Tab.Screen name="Booking" component={Booking} options={{
+        tabBarLabel: ({ color }) => (
+          <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Booking</Text>),
+        tabBarIcon: ({ color, size }) => (<FontAwesome name="bookmark" size={size} color={color} />)
       }} />
       <Tab.Screen name="Profile" component={Profile} options={{
         tabBarLabel: ({ color }) => (

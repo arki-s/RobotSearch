@@ -6,11 +6,12 @@ import Colors from '../../Styles/Colors';
 import Slider from './Slider';
 import Categories from './Categories';
 import RobotList from './RobotList';
+import Reviews from './Reviews';
 
 export default function Home() {
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={homeStyles.header}>
         <View style={homeStyles.headerSub}>
           <Image source={require('../../../assets/images/ロボットアイコン.png')} style={homeStyles.headerLogo} />
@@ -33,6 +34,7 @@ export default function Home() {
         <Slider />
         <Categories />
         <RobotList />
+        <Reviews />
       </ScrollView>
 
     </View>
