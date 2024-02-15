@@ -97,5 +97,26 @@ export const robotsStyles = ScaledSheet.create({
     textAlign:'center',
     fontSize:18,
     fontFamily:'kaisei',
+  },
+
+  detailsImg:{
+    height:'300@vs',
+    width:'100%',
+    objectFit:'cover',
+    borderRadius:10,
+  },
+
+  detailsArrow:{
+    position:'absolute',
+    top:'30@vs',
+    left:'25@s',
+    elevation:10,
+    zIndex:10,
+  },
+
+  detailsContainer:{
+    alignItems:'center',
+    padding:10,
+    marginVertical:10,
   }
 })
