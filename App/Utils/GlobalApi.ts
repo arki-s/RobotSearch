@@ -102,6 +102,28 @@ const getRobotByCategory = async(category:string)=>{
   return result
 }
 
+const getRobotById = async(id:string)=>{
+  const query = gql`
+  query getRobotId {
+    robot(where: {id: "`+id+`"}) {
+      name
+      email
+      cost
+      about
+      contactPerson
+      category {
+        type
+      }
+      images {
+        url
+      }
+    }
+  }
+  `
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
-  getSlider, getCategory, getRobot, getReview, getRobotByCategory,
+  getSlider, getCategory, getRobot, getReview, getRobotByCategory, getRobotById,
 }

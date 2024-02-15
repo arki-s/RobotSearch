@@ -6,6 +6,7 @@ export type RootStackParamList = {
   Profile:undefined;
   RobotListByCategory:{category: string | undefined; };
   Categories:undefined;
+  RobotDetails:{id: string | undefined};
 }
 
 export type Robot = {

@@ -91,4 +91,11 @@ export const robotsStyles = ScaledSheet.create({
     borderRadius:5,
     backgroundColor:Colors.SECONDARY_LIGHT,
   },
+
+  smallListNone:{
+    marginTop:15,
+    textAlign:'center',
+    fontSize:18,
+    fontFamily:'kaisei',
+  }
 })

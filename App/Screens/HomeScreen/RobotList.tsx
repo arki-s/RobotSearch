@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading'
 import GlobalApi from '../../Utils/GlobalApi';
 import { homeStyles } from '../../Styles/homeStyles';
-import { useNavigation } from '@react-navigation/native';
 
 export default function RobotList() {
   const [robots, setRobots] = useState([]);
-  const navigation = useNavigation();
 
   useEffect(() => {
     getRobots()
