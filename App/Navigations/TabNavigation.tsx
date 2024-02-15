@@ -7,11 +7,11 @@ import Profile from '../Screens/ProfileScreen/Profile';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Styles/Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { NavigationContainer } from '@react-navigation/native';
 import Booking from '../Screens/BookingScreen/Booking';
 import HomeNavigation from './HomeNavigation';
+import { RootStackParamList } from '../../types';
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
 export default function TabNavigation() {
   return (

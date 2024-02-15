@@ -7,8 +7,10 @@ import Slider from './Slider';
 import Categories from './Categories';
 import RobotList from './RobotList';
 import Reviews from './Reviews';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../types';
 
-export default function Home() {
+export default function Home({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
 
   return (
     <View style={{ flex: 1 }}>
@@ -32,7 +34,7 @@ export default function Home() {
 
       <ScrollView style={homeStyles.container}>
         <Slider />
-        <Categories />
+        <Categories navigation={navigation} />
         <RobotList />
         <Reviews />
       </ScrollView>

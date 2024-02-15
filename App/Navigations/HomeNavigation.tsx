@@ -10,8 +10,7 @@ export default function HomeNavigation() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="robotListCategory" component={RobotListByCategory} />
-
+      <Stack.Screen name="RobotListByCategory" component={RobotListByCategory} />
     </Stack.Navigator>
   )
 }

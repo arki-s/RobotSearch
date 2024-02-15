@@ -3,8 +3,11 @@ import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading'
 import { homeStyles } from '../../Styles/homeStyles'
 import GlobalApi from '../../Utils/GlobalApi';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../../types';
+import type { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 
-export default function Categories() {
+export default function Categories({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -21,9 +24,14 @@ export default function Categories() {
     })
   }
 
+  function HandleCategoryPress(categoryName: string) {
+    // console.log(categoryName);
+    navigation.navigate('RobotListByCategory', { category: categoryName });
+  }
+
   const categoryList = categories.map((ct) => {
     return (
-      <TouchableOpacity style={homeStyles.categoryContainer} key={ct["id"]}>
+      <TouchableOpacity style={homeStyles.categoryContainer} key={ct["id"]} onPress={() => ct["type"] && HandleCategoryPress(ct["type"])} >
         <Image source={ct["image"] && { uri: ct["image"]["url"] }} style={homeStyles.categoryImg} />
         <Text style={homeStyles.categoryText}>{ct["type"] && ct["type"]}</Text>
       </TouchableOpacity>
