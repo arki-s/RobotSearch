@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, StyleSheet } from 'react-native'
+import { View, Text, FlatList, Image, StyleSheet, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '../../Utils/GlobalApi'
 import { homeStyles } from '../../Styles/homeStyles';
@@ -22,18 +22,20 @@ export default function Slider() {
     })
   }
 
+  const sliders = slider.map((sd) => {
+    return (
+      <View style={homeStyles.slider} key={sd["id"]}>
+        <Image source={sd['image'] && { uri: sd['image']['url'] }} style={homeStyles.sliderImage} />
+      </View>
+    );
+  })
+
   return (
     <View>
       <Heading title={"お知らせ"} />
-      <FlatList
-        data={slider}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <View style={homeStyles.slider}>
-            <Image source={item['image'] && { uri: item['image']['url'] }} style={homeStyles.sliderImage} />
-          </View>
-        )} />
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        {sliders}
+      </ScrollView>
 
     </View>
   )

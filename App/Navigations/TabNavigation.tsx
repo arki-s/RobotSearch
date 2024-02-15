@@ -9,13 +9,14 @@ import Colors from '../Styles/Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import Booking from '../Screens/BookingScreen/Booking';
+import HomeNavigation from './HomeNavigation';
 
 const Tab = createBottomTabNavigator();
 
 export default function TabNavigation() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false, tabBarActiveTintColor: Colors.PRIMARY }}>
-      <Tab.Screen name="Home" component={Home} options={{
+      <Tab.Screen name="Overview" component={HomeNavigation} options={{
         tabBarLabel: ({ color }) => (
           <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Home</Text>),
         tabBarIcon: ({ color, size }) => (<FontAwesome name="home" size={size} color={color} />)

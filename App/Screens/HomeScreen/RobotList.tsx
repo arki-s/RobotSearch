@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading'
 import GlobalApi from '../../Utils/GlobalApi';
@@ -21,27 +21,29 @@ export default function RobotList() {
     })
   }
 
+  const robotlist = robots.map((rb) => {
+    return (
+      <TouchableOpacity style={homeStyles.robotContainer} key={rb["id"]}>
+        <Image source={{ uri: rb["images"][0]["url"] }} style={homeStyles.robotImg} />
+        <Text style={homeStyles.robotText}>
+          {rb["name"]}
+        </Text>
+        <Text style={homeStyles.robotCostText}>
+          費用(1日につき)：
+        </Text>
+        <Text style={homeStyles.robotCostText}>
+          {rb["cost"]} 円
+        </Text>
+      </TouchableOpacity>
+    );
+  })
+
   return (
     <View>
       <Heading title={"新着"} />
-      <FlatList
-        data={robots}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity style={homeStyles.robotContainer}>
-            <Image source={{ uri: item["images"][0]["url"] }} style={homeStyles.robotImg} />
-            <Text style={homeStyles.robotText}>
-              {item["name"]}
-            </Text>
-            <Text style={homeStyles.robotCostText}>
-              費用(1日につき)：
-            </Text>
-            <Text style={homeStyles.robotCostText}>
-              {item["cost"]} 円
-            </Text>
-          </TouchableOpacity>
-        )} />
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        {robotlist}
+      </ScrollView>
     </View>
   )
 }

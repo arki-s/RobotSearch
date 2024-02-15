@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import GlobalApi from '../../Utils/GlobalApi';
 import Heading from '../../Components/Heading';
@@ -21,24 +21,24 @@ export default function Reviews() {
     })
   }
 
+  const reviewList = reviews.map((rv) => {
+    return (
+      <TouchableOpacity style={homeStyles.reviewContainer} key={rv["id"]}>
+        <Text style={homeStyles.reviewTextName}>{rv["robot"]["name"]}</Text>
+        <Text style={homeStyles.reviewText}>{("⭐️").repeat(rv["rating"])}</Text>
+        <Text style={homeStyles.reviewText}>{rv["name"]}</Text>
+        <Text numberOfLines={3} style={homeStyles.reviewText}>{rv["comment"]}</Text>
+      </TouchableOpacity>
+    );
+  })
+
+
   return (
     <View>
       <Heading title={"新着レビュー"} />
-      <FlatList
-        data={reviews}
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        renderItem={({ item, index }) => (
-          <TouchableOpacity style={homeStyles.reviewContainer}>
-            <Text style={homeStyles.reviewTextName}>{item["robot"]["name"]}</Text>
-            <Text style={homeStyles.reviewText}>{("⭐️").repeat(item["rating"])}</Text>
-            <Text style={homeStyles.reviewText}>{item["name"]}</Text>
-            <Text numberOfLines={3} style={homeStyles.reviewText}>{item["comment"]}</Text>
-
-
-          </TouchableOpacity>
-        )}
-      />
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
+        {reviewList}
+      </ScrollView>
     </View>
   )
 }

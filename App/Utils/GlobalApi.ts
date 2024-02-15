@@ -18,7 +18,7 @@ return result
 }
 
 const getCategory = async ()=>{
-  const query = `
+  const query = gql`
   query getCategory {
     categories {
       id
@@ -35,7 +35,7 @@ const getCategory = async ()=>{
 }
 
 const getRobot = async () =>{
-  const query = `
+  const query = gql`
   query getRobot {
     robots {
       cost
@@ -59,7 +59,7 @@ const getRobot = async () =>{
 }
 
 const getReview = async ()=>{
-  const qurey = `
+  const query = gql`
   query getReview {
     reviews {
       id
@@ -74,10 +74,34 @@ const getReview = async ()=>{
   }
   `
 
-  const result:any = await request(MASTER_URL, qurey);
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
+const getRobotByCategory = async(category:string)=>{
+  const query=gql`
+  query getRobotCategory {
+    robots(where: {category: {type: "`+category+`"}}) {
+      cost
+      about
+      contactPerson
+      email
+      id
+      name
+      images {
+        url
+      }
+      category {
+        type
+      }
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, query);
   return result
 }
 
 export default {
-  getSlider, getCategory, getRobot, getReview,
+  getSlider, getCategory, getRobot, getReview, getRobotByCategory,
 }

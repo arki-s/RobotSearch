@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Image, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading'
 import { homeStyles } from '../../Styles/homeStyles'
@@ -21,22 +21,23 @@ export default function Categories() {
     })
   }
 
+  const categoryList = categories.map((ct) => {
+    return (
+      <TouchableOpacity style={homeStyles.categoryContainer} key={ct["id"]}>
+        <Image source={ct["image"] && { uri: ct["image"]["url"] }} style={homeStyles.categoryImg} />
+        <Text style={homeStyles.categoryText}>{ct["type"] && ct["type"]}</Text>
+      </TouchableOpacity>
+    );
+  })
+
 
   return (
-    // <View style={{ marginTop: -430 }}>
     <View>
       <Heading title={"カテゴリー"} />
       <View style={{ alignItems: 'center' }}>
-        <FlatList
-          data={categories}
-          numColumns={4}
-          renderItem={({ item, index }) => (
-            <TouchableOpacity style={homeStyles.categoryContainer}>
-              <Image source={item["image"] && { uri: item["image"]["url"] }} style={homeStyles.categoryImg} />
-              <Text style={homeStyles.categoryText}>{item["type"] && item["type"]}</Text>
-            </TouchableOpacity>
-          )}
-        />
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {categoryList}
+        </ScrollView>
       </View>
     </View>
   )
