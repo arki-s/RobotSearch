@@ -1,14 +1,26 @@
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import Colors from "./Colors";
+import { ScaledSheet, moderateScale } from 'react-native-size-matters/extend';
+import { s, vs, ms, mvs } from 'react-native-size-matters';
 
-export const homeStyles = StyleSheet.create({
+
+Dimensions.get('window')
+const { width, height, scale } = Dimensions.get('window');
+const csheight = height * 0.80;
+
+export const homeStyles = ScaledSheet.create({
   container:{
-    padding:5,
+    padding:'5@msr',
+    // display:'flex',
+    // flexDirection:'column',
+    // justifyContent:'space-around',
+    // backgroundColor:'#000000',
+    height:csheight,
   },
 
   header:{
     backgroundColor:Colors.PRIMARY,
-    height:160,
+    height:'125@vs',
     width:'100%',
     alignItems:'center',
     borderBottomLeftRadius:25,
@@ -21,7 +33,7 @@ export const homeStyles = StyleSheet.create({
     justifyContent:'center',
     gap:20,
     alignItems:'center',
-    marginVertical:15,
+    marginVertical:'12@vs',
   },
 
   headerSub2:{
@@ -35,16 +47,17 @@ export const homeStyles = StyleSheet.create({
 
   textInput:{
     backgroundColor:Colors.WHITE,
-    padding:8,
+    padding:5,
     paddingHorizontal:12,
     marginVertical:5,
-    width:270,
+    width:'280@s',
     borderRadius:10,
+    height:'38@vs',
     fontFamily:'kaisei',
   },
 
   searchIcon:{
-    padding:10,
+    padding:8,
     backgroundColor:Colors.WHITE,
     borderRadius:10,
   },
@@ -54,47 +67,46 @@ export const homeStyles = StyleSheet.create({
   },
 
   headerLogo:{
-    width:60,
-    height:60,
+    width:'45@vs',
+    height:'45@vs',
     objectFit:'contain',
 
   },
 
   headerText:{
     color:Colors.WHITE,
-    fontSize:30,
+    fontSize:'28@msr',
     fontFamily:'kaisei',
   },
 
   slider: {
-    marginVertical: 10,
+    marginVertical: "10@vs",
     marginRight: 10,
   },
 
   sliderImage: {
-    width: 270,
-    height: 150,
+    width: '270@s',
+    height: '150@vs',
     borderRadius: 10,
     objectFit: 'cover',
   },
 
   categoryContainer:{
-    marginTop:15,
+    marginTop:'10@vs',
     alignItems:'center',
     backgroundColor:Colors.WHITE,
     borderRadius:99,
-    height:75,
-    width:75,
+    height:'80@vs',
+    width:'80@s',
     padding:5,
-    marginHorizontal:10,
-    marginBottom:5,
+    marginHorizontal:'10@s',
+    marginBottom:'5@vs',
   },
 
   categoryImg:{
-    height:45,
-    width:45,
+    height:'45@vs',
+    width:'45@s',
     objectFit:'contain',
-
   },
 
   categoryText:{
@@ -102,32 +114,32 @@ export const homeStyles = StyleSheet.create({
   },
 
   robotContainer:{
-    marginTop:10,
+    marginTop:'10@vs',
     backgroundColor:Colors.WHITE,
     padding:8,
     marginRight:8,
     borderRadius:10,
     alignItems:'center',
-    width:180,
+    width:'180@s',
   },
 
   robotImg:{
-    height:120,
-    width:150,
+    height:'120@vs',
+    width:'150@s',
     objectFit:'cover',
     borderRadius:10,
   },
 
   robotText:{
     fontFamily:'kaisei',
-    fontSize:18,
+    fontSize:16,
     marginVertical:8,
     color:Colors.BLACK,
   },
 
   robotCostText:{
     fontFamily:'kaisei',
-    fontSize:16,
+    fontSize:14,
     color:Colors.PRIMARY,
   }
 

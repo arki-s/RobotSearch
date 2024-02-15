@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
+import { ScaledSheet, moderateScale } from 'react-native-size-matters/extend';
 
 export default function Heading({ title }: { title: string }) {
   return (
@@ -9,14 +10,14 @@ export default function Heading({ title }: { title: string }) {
   )
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   heading: {
-    marginVertical: 8,
-    marginLeft: 15,
+    marginVertical: '5@vs',
+    marginLeft: '15@s',
   },
 
   headingText: {
     fontFamily: 'kaisei',
-    fontSize: 24,
+    fontSize: '25@msr',
   }
 })

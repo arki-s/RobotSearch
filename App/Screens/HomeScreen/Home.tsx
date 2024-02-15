@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import { homeStyles } from '../../Styles/homeStyles'
 import { FontAwesome } from "@expo/vector-icons";
@@ -18,21 +18,22 @@ export default function Home() {
         </View>
         <View style={homeStyles.headerSub2}>
           <TextInput placeholder='検索' style={homeStyles.textInput} />
-          <TouchableOpacity>
+          <TouchableOpacity style={homeStyles.searchIcon}>
             <FontAwesome
               name="search"
-              size={24}
+              size={20}
               color={Colors.PRIMARY}
-              style={homeStyles.searchIcon}
             />
           </TouchableOpacity>
         </View>
       </View>
-      <View style={homeStyles.container}>
+
+
+      <ScrollView style={homeStyles.container}>
         <Slider />
         <Categories />
         <RobotList />
-      </View>
+      </ScrollView>
 
     </View>
   )

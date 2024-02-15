@@ -7,14 +7,14 @@ export const loginStyles = StyleSheet.create({
   },
 
   catchText:{
-    marginTop:100,
+    marginTop:60,
     fontFamily:'kaisei',
     fontSize:32,
     color:Colors.BLACK,
   },
 
   img:{
-    height:380,
+    height:'40%',
     width:'100%',
     objectFit:'contain',
     marginBottom:20,
@@ -23,7 +23,7 @@ export const loginStyles = StyleSheet.create({
 
   loginContainer:{
     width:'100%',
-    height:340,
+    height:'60%',
     backgroundColor:Colors.PRIMARY,
     borderTopStartRadius:20,
     borderTopEndRadius:20,
@@ -32,9 +32,9 @@ export const loginStyles = StyleSheet.create({
   expText:{
     color:Colors.WHITE,
     paddingHorizontal:20,
-    marginTop:30,
+    marginTop:18,
     fontFamily:'kaisei',
-    fontSize:18,
+    fontSize:16,
   },
 
   loginBtn:{
@@ -48,7 +48,7 @@ export const loginStyles = StyleSheet.create({
     color:Colors.PRIMARY,
     padding:10,
     fontFamily:'kaisei',
-    fontSize:24,
+    fontSize:22,
     textAlign:'center',
 
   },

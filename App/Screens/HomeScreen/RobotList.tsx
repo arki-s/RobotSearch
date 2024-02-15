@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image } from 'react-native'
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading'
 import GlobalApi from '../../Utils/GlobalApi';
@@ -29,7 +29,7 @@ export default function RobotList() {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
-          <View style={homeStyles.robotContainer}>
+          <TouchableOpacity style={homeStyles.robotContainer}>
             <Image source={{ uri: item["images"][0]["url"] }} style={homeStyles.robotImg} />
             <Text style={homeStyles.robotText}>
               {item["name"]}
@@ -40,7 +40,7 @@ export default function RobotList() {
             <Text style={homeStyles.robotCostText}>
               {item["cost"]} 円
             </Text>
-          </View>
+          </TouchableOpacity>
         )} />
     </View>
   )
