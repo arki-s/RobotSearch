@@ -3,8 +3,10 @@ import React, { useEffect, useState } from 'react'
 import Heading from '../../Components/Heading'
 import GlobalApi from '../../Utils/GlobalApi';
 import { homeStyles } from '../../Styles/homeStyles';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../types';
 
-export default function RobotList() {
+export default function RobotList({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
   const [robots, setRobots] = useState([]);
 
   useEffect(() => {
@@ -23,13 +25,14 @@ export default function RobotList() {
 
   const robotlist = robots.map((rb) => {
     return (
-      <TouchableOpacity style={homeStyles.robotContainer} key={rb["id"]}>
+      <TouchableOpacity style={homeStyles.robotContainer} key={rb["id"]}
+        onPress={() => navigation.navigate("RobotDetails", { id: rb["id"] })}>
         <Image source={{ uri: rb["images"][0]["url"] }} style={homeStyles.robotImg} />
         <Text style={homeStyles.robotText}>
           {rb["name"]}
         </Text>
         <Text style={homeStyles.robotCostText}>
-          費用(1日につき)：
+          料金(1日につき)：
         </Text>
         <Text style={homeStyles.robotCostText}>
           {rb["cost"]} 円

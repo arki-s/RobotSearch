@@ -118,5 +118,23 @@ export const robotsStyles = ScaledSheet.create({
     alignItems:'center',
     padding:10,
     marginVertical:10,
+  },
+
+  detailsSubContainer:{
+    marginVertical:'10@vs',
+    backgroundColor:Colors.WHITE,
+    borderRadius:10,
+    padding:15,
+  },
+
+  detailsTextName:{
+    fontSize:20,
+    fontFamily:'kaisei',
+  },
+
+  detailsTextA:{
+    fontFamily:'kaisei',
+    color:Colors.PRIMARY,
+
   }
 })

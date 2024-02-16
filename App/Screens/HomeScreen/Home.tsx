@@ -35,7 +35,7 @@ export default function Home({ navigation }: { navigation: NativeStackNavigation
       <ScrollView style={homeStyles.container}>
         <Slider />
         <Categories navigation={navigation} />
-        <RobotList />
+        <RobotList navigation={navigation} />
         <Reviews />
       </ScrollView>
 
