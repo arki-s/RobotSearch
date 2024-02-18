@@ -41,6 +41,19 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     })
   }
 
+  const photos = robot && (
+    <ScrollView horizontal={true}>
+      <FlatList
+        data={robot["images"]}
+        numColumns={2}
+        scrollEnabled={false}
+        renderItem={({ item }) => (
+          <Image source={{ uri: item.url }} style={robotsStyles.detailsImgs} />
+        )}
+      />
+    </ScrollView>
+  )
+
   function typeColor(type: string, robot: Robot) {
     if (type === "人型") {
       return (
@@ -74,7 +87,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
       <TouchableOpacity onPress={() => navigation.goBack()} style={robotsStyles.detailsArrow}>
         <FontAwesome5 name="arrow-left" size={28} color="black" />
       </TouchableOpacity>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ height: '92.5%' }}>
         <View style={robotsStyles.detailsContainer}>
           <Image source={{ uri: robot["images"][0]["url"] }} style={robotsStyles.detailsImg} />
 
@@ -91,12 +104,25 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
             <TouchableOpacity onPress={() => setReadMore(!readMore)}><Text style={{ fontFamily: 'kaisei', color: Colors.PRIMARY }}>{readMore ? "閉じる" : "さらに表示"}</Text></TouchableOpacity>
           </View>
 
-          <View style={robotsStyles.detailsSubContainer}>
-
+          <View style={robotsStyles.detailsPhotoContainer}>
+            <FlatList
+              data={robot["images"]}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <Image source={{ uri: item.url }} style={robotsStyles.detailsImgs} />
+              )}
+            />
           </View>
 
         </View>
+
       </ScrollView>
+      <View>
+        <TouchableOpacity style={robotsStyles.bookingBtn}>
+          <Text style={robotsStyles.bookingText}>予約する</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }

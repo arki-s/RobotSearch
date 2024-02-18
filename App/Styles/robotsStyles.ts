@@ -137,12 +137,34 @@ export const robotsStyles = ScaledSheet.create({
     color:Colors.PRIMARY,
   },
 
-  detailsImgs:{
+  detailsPhotoContainer:{
+    borderRadius:10,
+    backgroundColor:Colors.WHITE,
+    padding:3,
     width:'100%',
-    height:'120@vs',
-    flex:1,
+  },
+
+  detailsImgs:{
+    width:'180@s',
+    height:'150@vs',
     borderRadius:10,
     margin:5,
+  },
 
-  }
+  bookingBtn:{
+    backgroundColor:Colors.PRIMARY,
+    paddingHorizontal:16,
+    paddingVertical:8,
+    alignItems:'center',
+    borderRadius:99,
+    height:'50@vs',
+    marginHorizontal:3,
+  },
+
+  bookingText:{
+    color:Colors.WHITE,
+    fontFamily:'kaisei',
+    fontSize:22,
+    textAlign:'center',
+  },
 })
