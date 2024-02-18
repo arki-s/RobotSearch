@@ -1,5 +1,6 @@
 import { MASTER_URL } from '@env';
 import { request, gql } from 'graphql-request'
+import { Robot } from '../../types';
 
 const getSlider=async ()=>{
   const query = gql`
@@ -124,6 +125,23 @@ const getRobotById = async(id:string)=>{
   return result
 }
 
+const getReviewByRobot = async(id:string)=>{
+  const query = gql`
+  query getReviewByRobot {
+    reviews(where: {robot: {id: "`+id+`"}}) {
+      id
+      date
+      rating
+      name
+      comment
+    }
+  }
+  `
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
-  getSlider, getCategory, getRobot, getReview, getRobotByCategory, getRobotById,
+  getSlider, getCategory, getRobot, getReview, getRobotByCategory,
+  getRobotById, getReviewByRobot,
 }

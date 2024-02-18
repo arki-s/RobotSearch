@@ -16,15 +16,17 @@ type DetailsProps = {
 export default function RobotDetails({ navigation, route }: DetailsProps) {
   const [robot, setRobot] = useState();
   const [readMore, setReadMore] = useState(false);
+  const [reviews, setReviews] = useState();
 
   useEffect(() => {
     selectedRobot();
+    robotsReview();
   }, [])
 
   const selectedRobot = () => {
     if (!route.params.id) return null;
     GlobalApi.getRobotById(route.params.id).then((resp) => {
-      // console.log("resp", resp);
+      console.log("resp", resp);
       setRobot(resp.robot);
     }).catch((error) => {
       console.log("API call error!!")
@@ -32,27 +34,16 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     })
   }
 
-  function photo() {
-    if (!robot) return null;
-    robot["images"].map((img: { url: string }) => {
-      return (
-        <Image source={{ uri: img["url"] }} style={{ width: 10, height: 10 }} />
-      );
+  const robotsReview = () => {
+    if (!route.params.id) return null;
+    GlobalApi.getReviewByRobot(route.params.id).then((resp) => {
+      console.log("resp", resp);
+      setReviews(resp);
+    }).catch((error) => {
+      console.log("API call error!!");
+      console.log(error.message);
     })
   }
-
-  const photos = robot && (
-    <ScrollView horizontal={true}>
-      <FlatList
-        data={robot["images"]}
-        numColumns={2}
-        scrollEnabled={false}
-        renderItem={({ item }) => (
-          <Image source={{ uri: item.url }} style={robotsStyles.detailsImgs} />
-        )}
-      />
-    </ScrollView>
-  )
 
   function typeColor(type: string, robot: Robot) {
     if (type === "人型") {
@@ -105,6 +96,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
           </View>
 
           <View style={robotsStyles.detailsPhotoContainer}>
+            <Text style={robotsStyles.sectionText}>⭐️ 写真 ⭐️</Text>
             <FlatList
               data={robot["images"]}
               horizontal={true}
@@ -113,6 +105,12 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
                 <Image source={{ uri: item.url }} style={robotsStyles.detailsImgs} />
               )}
             />
+          </View>
+
+          <View style={robotsStyles.detailsSubContainer}>
+            <Text style={robotsStyles.sectionText}>⭐️ レビュー ⭐️</Text>
+            {reviews ? <Text>レビューあり</Text> : <Text style={robotsStyles.noReviewText}>レビューはありません。</Text>}
+
           </View>
 
         </View>

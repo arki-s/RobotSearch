@@ -125,6 +125,7 @@ export const robotsStyles = ScaledSheet.create({
     backgroundColor:Colors.WHITE,
     borderRadius:10,
     padding:15,
+    width:'100%',
   },
 
   detailsTextName:{
@@ -167,4 +168,19 @@ export const robotsStyles = ScaledSheet.create({
     fontSize:22,
     textAlign:'center',
   },
+
+  sectionText:{
+    fontFamily: 'kaisei',
+    fontSize: 20,
+    textAlign: 'center'
+  },
+
+  noReviewText:{
+    marginVertical:10,
+    fontFamily: 'kaisei',
+    fontSize: 16,
+    textAlign: 'center'
+  }
+
+
 })
