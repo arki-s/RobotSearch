@@ -100,7 +100,6 @@ export const homeStyles = ScaledSheet.create({
     height:'80@vs',
     width:'80@s',
     padding:5,
-    marginHorizontal:'10@s',
     marginBottom:'5@vs',
   },
 

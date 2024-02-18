@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Robot, RootStackParamList } from '../../../types';
@@ -6,6 +6,7 @@ import { RouteProp } from '@react-navigation/native';
 import GlobalApi from '../../Utils/GlobalApi';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { robotsStyles } from '../../Styles/robotsStyles';
+import Colors from '../../Styles/Colors';
 
 type DetailsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotDetails'>;
@@ -14,6 +15,7 @@ type DetailsProps = {
 
 export default function RobotDetails({ navigation, route }: DetailsProps) {
   const [robot, setRobot] = useState();
+  const [readMore, setReadMore] = useState(false);
 
   useEffect(() => {
     selectedRobot();
@@ -27,6 +29,15 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     }).catch((error) => {
       console.log("API call error!!")
       console.log(error.message);
+    })
+  }
+
+  function photo() {
+    if (!robot) return null;
+    robot["images"].map((img: { url: string }) => {
+      return (
+        <Image source={{ uri: img["url"] }} style={{ width: 10, height: 10 }} />
+      );
     })
   }
 
@@ -63,7 +74,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
       <TouchableOpacity onPress={() => navigation.goBack()} style={robotsStyles.detailsArrow}>
         <FontAwesome5 name="arrow-left" size={28} color="black" />
       </TouchableOpacity>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={robotsStyles.detailsContainer}>
           <Image source={{ uri: robot["images"][0]["url"] }} style={robotsStyles.detailsImg} />
 
@@ -76,7 +87,12 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
               <Text style={robotsStyles.detailsTextA}>連絡先：{robot["contactPerson"]}</Text>
               <Text style={robotsStyles.detailsTextA}>メールアドレス：{robot["email"]}</Text>
             </View>
-            <Text style={robotsStyles.smallListTypeText}>{robot["about"]}</Text>
+            <Text style={robotsStyles.smallListTypeText} numberOfLines={readMore ? 20 : 6}>{robot["about"]}</Text>
+            <TouchableOpacity onPress={() => setReadMore(!readMore)}><Text style={{ fontFamily: 'kaisei', color: Colors.PRIMARY }}>{readMore ? "閉じる" : "さらに表示"}</Text></TouchableOpacity>
+          </View>
+
+          <View style={robotsStyles.detailsSubContainer}>
+
           </View>
 
         </View>

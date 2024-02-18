@@ -65,7 +65,7 @@ export default function RobotListByCategory({ navigation, route }: CategoryProps
         key={robot["id"]}
         onPress={() => navigation.navigate("RobotDetails", { id: robot["id"] })}>
         <Image source={{ uri: robot["images"][0]["url"] }} style={robotsStyles.smallListImg} />
-        <View style={{ width: '52%' }}>
+        <View style={{ width: '50%' }}>
           <Text style={robotsStyles.smallListName}>{robot["name"]}</Text>
           <Text style={robotsStyles.smallListText}>料金(/日)：{robot["cost"]} 円</Text>
 

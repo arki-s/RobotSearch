@@ -43,9 +43,9 @@ export default function Categories({ navigation }: { navigation: NativeStackNavi
     <View>
       <Heading title={"カテゴリー"} />
       <View style={{ alignItems: 'center' }}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', gap: 8 }}>
           {categoryList}
-        </ScrollView>
+        </View>
       </View>
     </View>
   )

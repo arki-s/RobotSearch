@@ -135,6 +135,14 @@ export const robotsStyles = ScaledSheet.create({
   detailsTextA:{
     fontFamily:'kaisei',
     color:Colors.PRIMARY,
+  },
+
+  detailsImgs:{
+    width:'100%',
+    height:'120@vs',
+    flex:1,
+    borderRadius:10,
+    margin:5,
 
   }
 })
