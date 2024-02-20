@@ -37,8 +37,8 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
   const robotsReview = () => {
     if (!route.params.id) return null;
     GlobalApi.getReviewByRobot(route.params.id).then((resp) => {
-      console.log("resp", resp);
-      setReviews(resp);
+      console.log("resp", resp.reviews);
+      setReviews(resp.reviews);
     }).catch((error) => {
       console.log("API call error!!");
       console.log(error.message);
@@ -109,7 +109,24 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
 
           <View style={robotsStyles.detailsSubContainer}>
             <Text style={robotsStyles.sectionText}>⭐️ レビュー ⭐️</Text>
-            {reviews ? <Text>レビューあり</Text> : <Text style={robotsStyles.noReviewText}>レビューはありません。</Text>}
+            {reviews ? (
+              // <Text>レビューあり</Text>
+
+              <FlatList
+                data={reviews}
+                scrollEnabled={false}
+                renderItem={({ item, index }) => (
+                  <View style={robotsStyles.reviewContainer}>
+                    <View style={{ display: "flex", flexDirection: "row", gap: 10, marginBottom: 3 }}>
+                      <Text style={{ fontSize: 20, width: 130, }}>{("⭐️").repeat(item.rating)}</Text>
+                      <Text style={{ fontFamily: 'kaisei', fontSize: 18, color: Colors.PRIMARY }}>by {item.name}</Text>
+                    </View>
+                    <Text style={robotsStyles.smallListTypeText}>{item.comment}</Text>
+                  </View>
+                )}
+              />
+
+            ) : <Text style={robotsStyles.noReviewText}>レビューはありません。</Text>}
 
           </View>
 

@@ -180,6 +180,11 @@ export const robotsStyles = ScaledSheet.create({
     fontFamily: 'kaisei',
     fontSize: 16,
     textAlign: 'center'
+  },
+
+  reviewContainer:{
+    padding:5,
+    marginVertical:8,
   }
 
 
