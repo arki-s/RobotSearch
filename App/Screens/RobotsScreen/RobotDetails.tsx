@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, FlatList } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, FlatList, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Robot, RootStackParamList } from '../../../types';
@@ -7,6 +7,8 @@ import GlobalApi from '../../Utils/GlobalApi';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { robotsStyles } from '../../Styles/robotsStyles';
 import Colors from '../../Styles/Colors';
+import { AntDesign } from '@expo/vector-icons';
+import CalendarPicker from "react-native-calendar-picker";
 
 type DetailsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotDetails'>;
@@ -17,6 +19,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
   const [robot, setRobot] = useState();
   const [readMore, setReadMore] = useState(false);
   const [reviews, setReviews] = useState();
+  const [bookingModal, setBookingModal] = useState(false);
 
   useEffect(() => {
     selectedRobot();
@@ -73,6 +76,36 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     }
   }
 
+
+
+  const booking = () => {
+    if (bookingModal) return (
+      <Modal animationType='slide'>
+        <View>
+          <View>
+            <Text style={robotsStyles.bookingTitle}>予約</Text>
+            <TouchableOpacity onPress={() => setBookingModal(false)} style={robotsStyles.closeModal}>
+              <AntDesign name="closesquareo" size={30} color={Colors.PRIMARY} />
+            </TouchableOpacity>
+          </View>
+          <View style={robotsStyles.calendarContainer}>
+            <CalendarPicker
+              onDateChange={this.onDateChange}
+              allowRangeSelection={true}
+              width={330}
+              minDate={Date.now()}
+              todayBackgroundColor={Colors.PRIMARY}
+              todayTextStyle={{ color: Colors.WHITE }}
+              selectedDayColor={Colors.PRIMARY}
+              selectedDayTextColor={Colors.WHITE}
+            />
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+
+
   return robot && (
     <View>
       <TouchableOpacity onPress={() => navigation.goBack()} style={robotsStyles.detailsArrow}>
@@ -110,8 +143,6 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
           <View style={robotsStyles.detailsSubContainer}>
             <Text style={robotsStyles.sectionText}>⭐️ レビュー ⭐️</Text>
             {reviews ? (
-              // <Text>レビューあり</Text>
-
               <FlatList
                 data={reviews}
                 scrollEnabled={false}
@@ -134,10 +165,11 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
 
       </ScrollView>
       <View>
-        <TouchableOpacity style={robotsStyles.bookingBtn}>
+        <TouchableOpacity style={robotsStyles.bookingBtn} onPress={() => setBookingModal(true)}>
           <Text style={robotsStyles.bookingText}>予約する</Text>
         </TouchableOpacity>
       </View>
+      {booking()}
     </View>
   )
 }

@@ -185,7 +185,29 @@ export const robotsStyles = ScaledSheet.create({
   reviewContainer:{
     padding:5,
     marginVertical:8,
-  }
+  },
+
+  closeModal:{
+    position:'absolute',
+    top:50,
+    right:10,
+  },
+
+  bookingTitle:{
+    fontSize:24,
+    fontFamily:'kaisei',
+    textAlign:'center',
+    color:Colors.PRIMARY,
+    marginTop:50,
+  },
+
+  calendarContainer:{
+    marginTop:'10@vs',
+    borderRadius:15,
+    backgroundColor:Colors.SECONDARY_LIGHT,
+    marginHorizontal:12,
+    padding:8,
+  },
 
 
 })
