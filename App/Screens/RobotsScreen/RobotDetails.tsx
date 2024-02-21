@@ -9,6 +9,8 @@ import { robotsStyles } from '../../Styles/robotsStyles';
 import Colors from '../../Styles/Colors';
 import { AntDesign } from '@expo/vector-icons';
 import CalendarPicker from "react-native-calendar-picker";
+import DropDownPicker from 'react-native-dropdown-picker';
+import { TextInput } from 'react-native-gesture-handler';
 
 type DetailsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotDetails'>;
@@ -20,6 +22,19 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
   const [readMore, setReadMore] = useState(false);
   const [reviews, setReviews] = useState();
   const [bookingModal, setBookingModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(0);
+  const [items, setItems] = useState([
+    { label: '1日', value: '1' },
+    { label: '2日', value: '2' },
+    { label: '3日', value: '3' },
+    { label: '4日', value: '4' },
+    { label: '5日', value: '5' },
+    { label: '6日', value: '6' },
+    { label: '7日', value: '7' }
+  ]);
 
   useEffect(() => {
     selectedRobot();
@@ -40,7 +55,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
   const robotsReview = () => {
     if (!route.params.id) return null;
     GlobalApi.getReviewByRobot(route.params.id).then((resp) => {
-      console.log("resp", resp.reviews);
+      // console.log("resp", resp.reviews);
       setReviews(resp.reviews);
     }).catch((error) => {
       console.log("API call error!!");
@@ -79,6 +94,10 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
 
 
   const booking = () => {
+    const minDate = Date.now();
+    const total = robot && Number((robot["cost"] as String).replace(/,/g, "")) * value;
+
+
     if (bookingModal) return (
       <Modal animationType='slide'>
         <View>
@@ -88,18 +107,57 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
               <AntDesign name="closesquareo" size={30} color={Colors.PRIMARY} />
             </TouchableOpacity>
           </View>
+          <Text style={robotsStyles.bookingModalText}>明日以降の日付を選択してください</Text>
           <View style={robotsStyles.calendarContainer}>
             <CalendarPicker
-              onDateChange={this.onDateChange}
-              allowRangeSelection={true}
+              onDateChange={(date: Date) => {
+                if (date.getTime() < minDate) {
+                  return;
+                }
+                setSelectedDate(date);
+              }}
+              // allowRangeSelection={true}
               width={330}
-              minDate={Date.now()}
-              todayBackgroundColor={Colors.PRIMARY}
-              todayTextStyle={{ color: Colors.WHITE }}
+              minDate={minDate}
+              maxDate={new Date(2100, 12, 31)}
+              // todayBackgroundColor={Colors.PRIMARY}
+              // todayTextStyle={{ color: Colors.WHITE }}
               selectedDayColor={Colors.PRIMARY}
               selectedDayTextColor={Colors.WHITE}
             />
           </View>
+          <Text style={robotsStyles.bookingModalText}>レンタル期間を選択してください</Text>
+          <View style={{ alignItems: 'center', marginVertical: 10, zIndex: 1 }}>
+            <DropDownPicker
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              style={{ backgroundColor: Colors.WHITE, }}
+              containerStyle={{
+                width: 150,
+              }}
+              textStyle={{
+                fontFamily: 'kaisei',
+              }}
+              zIndex={1000}
+            />
+          </View>
+          <Text style={robotsStyles.bookingModalText}>何か要望があれば入力してください</Text>
+          <TextInput placeholder='ペットロボットの場合は名前や性格など' />
+
+          <View>
+            <Text>
+              レンタル開始日：{selectedDate ? selectedDate?.toString() : "開始日を選択してください"}
+            </Text>
+            <Text>
+              レンタル期間：{value == 0 ? "期間を選択してください" : value + "日"}
+            </Text>
+            <Text>レンタル料：{total != undefined && (total as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
+          </View>
+
         </View>
       </Modal>
     );

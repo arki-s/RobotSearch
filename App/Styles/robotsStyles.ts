@@ -209,5 +209,12 @@ export const robotsStyles = ScaledSheet.create({
     padding:8,
   },
 
+  bookingModalText:{
+    textAlign: 'center',
+    color: Colors.PRIMARY,
+    fontFamily: 'kaisei',
+    marginTop: 8
+  },
+
 
 })
