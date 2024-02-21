@@ -36,6 +36,8 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     { label: '7日', value: '7' }
   ]);
 
+  const [note, setNote] = useState("");
+
   useEffect(() => {
     selectedRobot();
     robotsReview();
@@ -146,17 +148,27 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
             />
           </View>
           <Text style={robotsStyles.bookingModalText}>何か要望があれば入力してください</Text>
-          <TextInput placeholder='ペットロボットの場合は名前や性格など' />
-
-          <View>
-            <Text>
-              レンタル開始日：{selectedDate ? selectedDate?.toString() : "開始日を選択してください"}
-            </Text>
-            <Text>
-              レンタル期間：{value == 0 ? "期間を選択してください" : value + "日"}
-            </Text>
-            <Text>レンタル料：{total != undefined && (total as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
+          <View style={{ alignItems: 'center' }}>
+            <TextInput placeholder='ペットロボットの場合は名前や性格など' style={robotsStyles.bookingInput}
+              multiline={true} onChange={(note) => setNote(note)} value={note}
+              numberOfLines={2} />
           </View>
+
+          <View style={robotsStyles.resultContainer}>
+            <View style={{ width: "80%" }}>
+              <Text style={robotsStyles.bookingModalTextResult}>
+                レンタル開始日：{selectedDate ? selectedDate?.toString().substring(0, 16) : "開始日を選択してください"}
+              </Text>
+              <Text style={robotsStyles.bookingModalTextResult}>
+                レンタル期間　：{value == 0 ? "期間を選択してください" : value + "日"}
+              </Text>
+              <Text style={robotsStyles.bookingModalTextResult}>レンタル料　　：{total != undefined && (total as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
+            </View>
+
+          </View>
+          <TouchableOpacity style={robotsStyles.bookingBtn} >
+            <Text style={robotsStyles.bookingText}>予約を確定する</Text>
+          </TouchableOpacity>
 
         </View>
       </Modal>
