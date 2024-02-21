@@ -157,10 +157,10 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
           <View style={robotsStyles.resultContainer}>
             <View style={{ width: "80%" }}>
               <Text style={robotsStyles.bookingModalTextResult}>
-                レンタル開始日：{selectedDate ? selectedDate?.toString().substring(0, 16) : "開始日を選択してください"}
+                レンタル開始日：{selectedDate ? selectedDate?.toString().substring(0, 16) : "選択してください"}
               </Text>
               <Text style={robotsStyles.bookingModalTextResult}>
-                レンタル期間　：{value == 0 ? "期間を選択してください" : value + "日"}
+                レンタル期間　：{value == 0 ? "選択してください" : value + "日"}
               </Text>
               <Text style={robotsStyles.bookingModalTextResult}>レンタル料　　：{total != undefined && (total as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
             </View>

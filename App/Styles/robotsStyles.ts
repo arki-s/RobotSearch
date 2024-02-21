@@ -225,7 +225,7 @@ export const robotsStyles = ScaledSheet.create({
   },
 
   bookingInput:{
-    marginVertical:10,
+    marginTop:10,
     borderWidth:1,
     borderRadius:15,
     borderColor:Colors.BLACK,
