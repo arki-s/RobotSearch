@@ -141,7 +141,31 @@ const getReviewByRobot = async(id:string)=>{
   return result
 }
 
+const createBooking = async(userEmail:string, date:Date, days:number, fee:number, comment:string, robotId:string)=>{
+  const mutationQuery = gql`
+  mutation createBooking {
+    createBooking(
+      data: {userEmail: "`+userEmail+`",
+        startDate: "`+date+`",
+        days: `+days+`,
+        totalFee: `+fee+`,
+        comment: "`+comment+`",
+        completed: false,
+        robot: {connect: {id: "`+robotId+`"}}}
+    ) {
+      id
+    }
+    publishManyBookings(to: PUBLISHED) {
+      count
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, mutationQuery);
+  return result
+}
+
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
-  getRobotById, getReviewByRobot,
+  getRobotById, getReviewByRobot, createBooking,
 }

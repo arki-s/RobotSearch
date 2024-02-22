@@ -11,6 +11,7 @@ import { AntDesign } from '@expo/vector-icons';
 import CalendarPicker from "react-native-calendar-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { TextInput } from 'react-native-gesture-handler';
+import { useUser } from "@clerk/clerk-expo";
 
 type DetailsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotDetails'>;
@@ -21,6 +22,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
   const [robot, setRobot] = useState();
   const [readMore, setReadMore] = useState(false);
   const [reviews, setReviews] = useState();
+  const { user } = useUser();
   const [bookingModal, setBookingModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
@@ -35,8 +37,10 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     { label: '6日', value: '6' },
     { label: '7日', value: '7' }
   ]);
+  const [totalFee, setTotalFee] = useState(0);
 
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState<string>("");
+  let total: number = 0;
 
   useEffect(() => {
     selectedRobot();
@@ -46,7 +50,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
   const selectedRobot = () => {
     if (!route.params.id) return null;
     GlobalApi.getRobotById(route.params.id).then((resp) => {
-      console.log("resp", resp);
+      // console.log("resp", resp);
       setRobot(resp.robot);
     }).catch((error) => {
       console.log("API call error!!")
@@ -93,12 +97,55 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     }
   }
 
+  const createNewBooking = () => {
+    if (!user || !robot || !selectedDate) return null;
+    if (user?.primaryEmailAddress?.emailAddress == undefined || route.params.id == undefined) return null;
+
+    setTotalFee(total == undefined ? 0 : total);
+
+    const userEmail = user?.primaryEmailAddress?.emailAddress;
+    const date = selectedDate;
+    const days = value;
+    const fee = totalFee;
+    const comment = note;
+    const id = route.params.id;
+
+    GlobalApi.createBooking(userEmail, date, days, fee, comment, id).then((resp) => {
+      console.log("resp", resp);
+      console.log("予約成功！");
+      setBookingModal(false);
+    }).catch((error) => {
+      console.log("予約失敗・・・");
+      console.log(error.message);
+      setBookingModal(false);
+    });
+
+  }
 
 
   const booking = () => {
     const minDate = Date.now();
-    const total = robot && Number((robot["cost"] as String).replace(/,/g, "")) * value;
+    const totalcheck = robot && Number((robot["cost"] as String).replace(/,/g, "")) * value;
+    total = totalcheck != undefined ? totalcheck : 0;
+    // console.log(user?.primaryEmailAddress?.emailAddress);
 
+    function bookingBtn() {
+      if (selectedDate && value != 0) {
+        return (
+          <TouchableOpacity style={robotsStyles.bookingBtn} onPress={() => createNewBooking()}>
+            <Text style={robotsStyles.bookingText}>予約を確定する</Text>
+          </TouchableOpacity>
+        )
+      } else {
+        return (
+          <View style={{ opacity: 0.5 }}>
+            <View style={robotsStyles.bookingBtn}>
+              <Text style={robotsStyles.bookingText}>予約を確定する</Text>
+            </View>
+          </View>
+        )
+      }
+    }
 
     if (bookingModal) return (
       <Modal animationType='slide'>
@@ -150,7 +197,7 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
           <Text style={robotsStyles.bookingModalText}>何か要望があれば入力してください</Text>
           <View style={{ alignItems: 'center' }}>
             <TextInput placeholder='ペットロボットの場合は名前や性格など' style={robotsStyles.bookingInput}
-              multiline={true} onChange={(note) => setNote(note)} value={note}
+              multiline={true} onChangeText={(note) => setNote(note)} value={note}
               numberOfLines={2} />
           </View>
 
@@ -166,9 +213,8 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
             </View>
 
           </View>
-          <TouchableOpacity style={robotsStyles.bookingBtn} >
-            <Text style={robotsStyles.bookingText}>予約を確定する</Text>
-          </TouchableOpacity>
+
+          {bookingBtn()}
 
         </View>
       </Modal>
