@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image, FlatList, Modal } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, FlatList, Modal, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Robot, RootStackParamList } from '../../../types';
@@ -12,6 +12,8 @@ import CalendarPicker from "react-native-calendar-picker";
 import DropDownPicker from 'react-native-dropdown-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import { useUser } from "@clerk/clerk-expo";
+import toast from 'react-native-toast-notifications/lib/typescript/toast';
+import { useToast } from "react-native-toast-notifications";
 
 type DetailsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotDetails'>;
@@ -38,9 +40,9 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     { label: '7日', value: '7' }
   ]);
   const [totalFee, setTotalFee] = useState(0);
-
   const [note, setNote] = useState<string>("");
   let total: number = 0;
+  const toast = useToast();
 
   useEffect(() => {
     selectedRobot();
@@ -113,6 +115,15 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     GlobalApi.createBooking(userEmail, date, days, fee, comment, id).then((resp) => {
       console.log("resp", resp);
       console.log("予約成功！");
+
+      toast.show("予約が完了しました！", {
+        type: "success",
+        placement: "bottom",
+        duration: 5000,
+        offset: 30,
+        animationType: "zoom-in",
+      });
+
       setBookingModal(false);
     }).catch((error) => {
       console.log("予約失敗・・・");
@@ -121,6 +132,16 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     });
 
   }
+
+  const completedBooking = (
+    <Modal>
+      <View>
+        <View>
+          <Text>予約が完了しました！</Text>
+        </View>
+      </View>
+    </Modal>
+  );
 
 
   const booking = () => {

@@ -8,6 +8,7 @@ import Signup from './App/LoginScreen/Signup';
 import Login from './App/LoginScreen/Login';
 import TabNavigation from './App/Navigations/TabNavigation';
 import { useFonts } from 'expo-font';
+import { ToastProvider } from 'react-native-toast-notifications';
 
 
 export default function App() {
@@ -18,19 +19,21 @@ export default function App() {
   return (
     <ClerkProvider publishableKey={(CLERK_PUBLISHABLE_KEY).trim()}>
       <View style={styles.container}>
-        {/* <GestureHandlerRootView> */}
+        <ToastProvider>
+          {/* <GestureHandlerRootView> */}
 
-        <SignedIn>
-          <NavigationContainer>
-            <TabNavigation />
-          </NavigationContainer>
-        </SignedIn>
+          <SignedIn>
+            <NavigationContainer>
+              <TabNavigation />
+            </NavigationContainer>
+          </SignedIn>
 
-        <SignedOut>
-          <Login />
-        </SignedOut>
+          <SignedOut>
+            <Login />
+          </SignedOut>
 
-        {/* </GestureHandlerRootView> */}
+          {/* </GestureHandlerRootView> */}
+        </ToastProvider>
       </View>
     </ClerkProvider>
   );
