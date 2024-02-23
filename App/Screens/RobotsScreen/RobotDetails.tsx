@@ -133,17 +133,6 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
 
   }
 
-  const completedBooking = (
-    <Modal>
-      <View>
-        <View>
-          <Text>予約が完了しました！</Text>
-        </View>
-      </View>
-    </Modal>
-  );
-
-
   const booking = () => {
     const minDate = Date.now();
     const totalcheck = robot && Number((robot["cost"] as String).replace(/,/g, "")) * value;

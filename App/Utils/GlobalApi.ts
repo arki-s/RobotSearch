@@ -165,12 +165,11 @@ const createBooking = async(userEmail:string, date:Date, days:number, fee:number
   return result
 }
 
-const getBooking = async(userEmail:string)=>{
+const getNotCompletedBooking = async(userEmail:string)=>{
   const query = gql`
-  query getBooking {
-    bookings(where: {userEmail: "`+userEmail+`"}) {
+  query getBookingNotCompleted {
+    bookings(where: {userEmail: "`+userEmail+`", completed: false}) {
       id
-      completed
       startDate
       days
       totalFee
@@ -189,7 +188,34 @@ const getBooking = async(userEmail:string)=>{
   return result
 }
 
+const getCompletedBooking = async(userEmail:string)=>{
+  const query = gql`
+  query getBookingNotCompleted {
+    bookings(where: {userEmail: "`+userEmail+`", completed: true}) {
+      id
+      startDate
+      days
+      totalFee
+      comment
+      robot {
+        id
+        name
+        contactPerson
+        email
+      }
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
+
+
+
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
-  getRobotById, getReviewByRobot, createBooking, getBooking
+  getRobotById, getReviewByRobot, createBooking, getNotCompletedBooking,
+  getCompletedBooking,
 }
