@@ -165,7 +165,31 @@ const createBooking = async(userEmail:string, date:Date, days:number, fee:number
   return result
 }
 
+const getBooking = async(userEmail:string)=>{
+  const query = gql`
+  query getBooking {
+    bookings(where: {userEmail: "`+userEmail+`"}) {
+      id
+      completed
+      startDate
+      days
+      totalFee
+      comment
+      robot {
+        id
+        name
+        contactPerson
+        email
+      }
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
-  getRobotById, getReviewByRobot, createBooking,
+  getRobotById, getReviewByRobot, createBooking, getBooking
 }

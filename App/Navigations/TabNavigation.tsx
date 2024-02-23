@@ -7,9 +7,9 @@ import Profile from '../Screens/ProfileScreen/Profile';
 import { FontAwesome } from '@expo/vector-icons';
 import Colors from '../Styles/Colors';
 import { FontAwesome5 } from '@expo/vector-icons';
-import Booking from '../Screens/BookingScreen/Booking';
 import HomeNavigation from './HomeNavigation';
 import { RootStackParamList } from '../../types';
+import BookingNavigation from './BookingNavigation';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
@@ -26,7 +26,7 @@ export default function TabNavigation() {
           <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Robots</Text>),
         tabBarIcon: ({ color, size }) => (<FontAwesome5 name="robot" size={size} color={color} />)
       }} />
-      <Tab.Screen name="Booking" component={Booking} options={{
+      <Tab.Screen name="Bookings" component={BookingNavigation} options={{
         tabBarLabel: ({ color }) => (
           <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Booking</Text>),
         tabBarIcon: ({ color, size }) => (<FontAwesome name="bookmark" size={size} color={color} />)

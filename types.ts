@@ -3,6 +3,8 @@ export type RootStackParamList = {
   Home:undefined;
   Robots:undefined;
   Booking:undefined;
+  Bookings:undefined;
+  Completed:undefined;
   Profile:undefined;
   RobotListByCategory:{category: string | undefined; };
   Categories:undefined;
