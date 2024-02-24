@@ -179,6 +179,9 @@ const getNotCompletedBooking = async(userEmail:string)=>{
         name
         contactPerson
         email
+        images {
+          url
+        }
       }
     }
   }
@@ -202,6 +205,9 @@ const getCompletedBooking = async(userEmail:string)=>{
         name
         contactPerson
         email
+        images {
+          url
+        }
       }
     }
   }

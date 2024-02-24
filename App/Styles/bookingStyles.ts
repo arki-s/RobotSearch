@@ -50,6 +50,60 @@ export const bookingStyles = ScaledSheet.create({
     fontFamily:'kaisei',
     color:Colors.WHITE,
     fontSize:16,
+  },
+
+  listContainer:{
+    padding:10,
+    borderRadius:10,
+    backgroundColor:Colors.WHITE,
+    width:'90%',
+    marginBottom:10,
+  },
+
+  listImg:{
+    height:'70@vs',
+    width:'70@s',
+    objectFit:'cover',
+    borderRadius:10,
+  },
+
+  cancelBtn:{
+    marginTop:5,
+    width:'100@s',
+    paddingVertical:3,
+    paddingHorizontal:8,
+    borderRadius:5,
+    backgroundColor:Colors.PRIMARY_LIGHT,
+    alignSelf:'flex-end',
+  },
+
+  cancelText:{
+    fontFamily:'kaisei',
+    color:Colors.WHITE,
+    textAlign:'center',
+  },
+
+  nameText:{
+    fontFamily:'kaisei',
+    fontSize:22,
+    color:Colors.PRIMARY,
+  },
+
+  text:{
+    fontFamily:'kaisei',
+  },
+
+  contactText:{
+    fontFamily:'kaisei',
+    color:Colors.GRAY,
+    marginTop:'5@vs',
+  },
+
+  noBookingsText:{
+    marginTop:'100@vs',
+    textAlign:'center',
+    fontFamily:'kaisei',
+    fontSize:24,
   }
 
 })
