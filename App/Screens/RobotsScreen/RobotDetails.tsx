@@ -39,7 +39,6 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     { label: '6日', value: '6' },
     { label: '7日', value: '7' }
   ]);
-  const [totalFee, setTotalFee] = useState(0);
   const [note, setNote] = useState<string>("");
   let total: number = 0;
   const toast = useToast();
@@ -103,12 +102,10 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
     if (!user || !robot || !selectedDate) return null;
     if (user?.primaryEmailAddress?.emailAddress == undefined || route.params.id == undefined) return null;
 
-    setTotalFee(total == undefined ? 0 : total);
-
     const userEmail = user?.primaryEmailAddress?.emailAddress;
     const date = selectedDate;
     const days = value;
-    const fee = totalFee;
+    const fee = total;
     const comment = note;
     const id = route.params.id;
 
