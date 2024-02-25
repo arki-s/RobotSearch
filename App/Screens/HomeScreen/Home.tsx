@@ -9,19 +9,20 @@ import RobotList from './RobotList';
 import Reviews from './Reviews';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../types';
+import { globalStyles } from '../../Styles/globalStyles';
 
 export default function Home({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={homeStyles.header}>
-        <View style={homeStyles.headerSub}>
-          <Image source={require('../../../assets/images/ロボットアイコン.png')} style={homeStyles.headerLogo} />
-          <Text style={homeStyles.headerText}>Robot Search</Text>
+      <View style={globalStyles.header}>
+        <View style={globalStyles.headerSub}>
+          <Image source={require('../../../assets/images/ロボットアイコン.png')} style={globalStyles.headerLogo} />
+          <Text style={globalStyles.headerText}>Robot Search</Text>
         </View>
-        <View style={homeStyles.headerSub2}>
-          <TextInput placeholder='検索' style={homeStyles.textInput} />
-          <TouchableOpacity style={homeStyles.searchIcon}>
+        <View style={globalStyles.headerSub2}>
+          <TextInput placeholder='検索' style={globalStyles.textInput} />
+          <TouchableOpacity style={globalStyles.searchIcon}>
             <FontAwesome
               name="search"
               size={20}

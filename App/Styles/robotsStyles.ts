@@ -248,5 +248,11 @@ export const robotsStyles = ScaledSheet.create({
     fontSize:16,
   },
 
+  headerTextR:{
+    color:Colors.SECONDARY,
+    fontSize:'30.5@msr',
+    fontFamily:'kaisei',
+  },
+
 
 })
