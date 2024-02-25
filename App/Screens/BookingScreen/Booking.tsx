@@ -69,6 +69,8 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
         animationType: "zoom-in",
       });
 
+      getNotCompletedBooking();
+
       setDeleteModal(false);
 
     }).catch((error) => {

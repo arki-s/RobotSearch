@@ -222,9 +222,12 @@ const deleteBooking = async(id:string) =>{
   mutation MyMutation {
     deleteBooking(where: {id: "`+id+`"}) {
       id
-    }
-    publishManyBookings {
-      count
+      userEmail
+      totalFee
+      startDate
+      days
+      completed
+      comment
     }
   }
   `
