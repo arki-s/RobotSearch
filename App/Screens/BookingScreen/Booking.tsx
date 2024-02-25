@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, Image } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Image, Modal } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../types'
@@ -7,10 +7,14 @@ import { useUser } from "@clerk/clerk-expo";
 import { bookingStyles } from '../../Styles/bookingStyles'
 import { FontAwesome5 } from '@expo/vector-icons';
 import Colors from '../../Styles/Colors'
+import { useToast } from "react-native-toast-notifications";
 
 export default function Booking({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
   const { user } = useUser();
   const [bookings, setBookings] = useState([]);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteBooking, setDeleteBooking] = useState<string | null>(null);
+  const toast = useToast();
 
   useEffect(() => {
     getNotCompletedBooking();
@@ -32,6 +36,58 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
     navigation.navigate('Completed');
   }
 
+  const deleteConfirmModal = deleteModal && (
+    <Modal transparent={true} animationType='slide'>
+      <View style={bookingStyles.modalContainer}>
+        <View style={bookingStyles.modalSubContainer}>
+          <Text style={bookingStyles.modalText}>この予約をキャンセルしますか？</Text>
+
+          <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center', gap: 10, }}>
+            <TouchableOpacity onPress={HandleDeletePress} style={bookingStyles.modalYes}>
+              <Text style={bookingStyles.modalBtnText}>はい</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => { setDeleteBooking(null); setDeleteModal(false); }} style={bookingStyles.modalNo}>
+              <Text style={bookingStyles.modalBtnText}>いいえ</Text>
+            </TouchableOpacity>
+          </View>
+
+        </View>
+      </View>
+    </Modal>
+  );
+
+  function HandleDeletePress() {
+    if (!deleteBooking) return null;
+    GlobalApi.deleteBooking(deleteBooking).then((resp) => {
+      console.log("resp", resp);
+
+      toast.show("キャンセルが完了しました！", {
+        type: "success",
+        placement: "bottom",
+        duration: 5000,
+        offset: 30,
+        animationType: "zoom-in",
+      });
+
+      setDeleteModal(false);
+
+    }).catch((error) => {
+      console.log("API call error!");
+      console.log(error.message);
+
+      toast.show("キャンセルに失敗しました。", {
+        type: "danger",
+        placement: "bottom",
+        duration: 5000,
+        offset: 30,
+        animationType: "zoom-in",
+      });
+
+      setDeleteModal(false);
+    })
+
+  }
+
   const bookingList = bookings.map((bk) => {
     return (
       <View key={bk["id"]} style={bookingStyles.listContainer}>
@@ -51,7 +107,7 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
           <Text style={bookingStyles.text}>料金　　　　　：{(bk["totalFee"] as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
           <Text style={bookingStyles.text}>コメント：{bk["comment"]}</Text>
         </View>
-        <TouchableOpacity style={bookingStyles.cancelBtn}>
+        <TouchableOpacity style={bookingStyles.cancelBtn} onPress={() => { setDeleteBooking(bk["id"]); setDeleteModal(true); }}>
           <Text style={bookingStyles.cancelText}>キャンセル</Text>
         </TouchableOpacity>
 
@@ -81,6 +137,7 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
           {check}
         </View>
       </ScrollView>
+      {deleteConfirmModal}
     </View>
   )
 }

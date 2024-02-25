@@ -104,6 +104,54 @@ export const bookingStyles = ScaledSheet.create({
     textAlign:'center',
     fontFamily:'kaisei',
     fontSize:24,
+  },
+
+  modalContainer:{
+    alignItems:'center',
+    marginTop:'300@vs',
+  },
+
+  modalSubContainer:{
+    borderRadius:10,
+    borderWidth:3,
+    borderColor:Colors.SECONDARY,
+    backgroundColor:Colors.WHITE,
+    width:'300@s',
+    height:'150@vs',
+    padding:'20@msr',
+  },
+
+  modalText:{
+    fontFamily:'kaisei',
+    fontSize:16,
+    textAlign:'center',
+    marginBottom:'30@vs',
+  },
+
+  modalYes:{
+    alignItems:'center',
+    borderRadius:99,
+    backgroundColor:Colors.PRIMARY,
+    paddingVertical:'8@msr',
+    paddingHorizontal:'14@msr',
+    width:'80@s',
+
+  },
+
+  modalNo:{
+    alignItems:'center',
+    borderRadius:99,
+    backgroundColor:Colors.PRIMARY_LIGHT,
+    paddingVertical:'8@msr',
+    paddingHorizontal:'14@msr',
+    width:'80@s',
+
+  },
+
+  modalBtnText:{
+    textAlign:'center',
+    fontFamily:'kaisei',
+    color:Colors.WHITE,
   }
 
 })

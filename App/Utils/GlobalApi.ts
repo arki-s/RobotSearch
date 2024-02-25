@@ -217,11 +217,35 @@ const getCompletedBooking = async(userEmail:string)=>{
   return result
 }
 
+const deleteBooking = async(id:string) =>{
+  const mutationQuery = gql`
+  mutation MyMutation {
+    deleteBooking(where: {id: "`+id+`"}) {
+      id
+    }
+    publishManyBookings {
+      count
+    }
+  }
+  `
+  const result:any = await request(MASTER_URL, mutationQuery);
+  return result
+}
 
+const autoUpdateBooking = async(id:string) =>{
+  const mutationQuery = gql`
+  mutation MyMutation {
+    updateManyBookings(data: {completed: true}, where: {id: ""})
+  }
+  `
+
+  const result:any = await request(MASTER_URL, mutationQuery);
+  return result
+}
 
 
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
   getRobotById, getReviewByRobot, createBooking, getNotCompletedBooking,
-  getCompletedBooking,
+  getCompletedBooking, deleteBooking, autoUpdateBooking,
 }
