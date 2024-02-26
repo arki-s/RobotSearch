@@ -3,10 +3,23 @@ import React from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../types'
 import { profileStyles } from '../../Styles/profileStyles'
-import { SignedOut, useUser } from "@clerk/clerk-expo";
+import { useAuth, useUser } from "@clerk/clerk-expo";
 
 export default function Profile({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
   const { user } = useUser();
+  const { isLoaded, signOut } = useAuth();
+
+  const SignOut = () => {
+    if (!isLoaded) {
+      return null;
+    }
+
+    return (
+      <TouchableOpacity onPress={() => signOut()} style={profileStyles.logoutBtn}>
+        <Text style={profileStyles.btnText}>ログアウト</Text>
+      </TouchableOpacity>
+    );
+  };
 
   return (
     <View style={profileStyles.container}>
@@ -18,9 +31,7 @@ export default function Profile({ navigation }: { navigation: NativeStackNavigat
           <Text style={profileStyles.dataText}>アカウント名：{user?.primaryEmailAddress?.emailAddress}</Text>
           <Text style={profileStyles.dataText}>これまでの予約数：</Text>
           <Text style={profileStyles.dataText}>レビュー数：</Text>
-          <TouchableOpacity onPress={() => SignedOut} style={profileStyles.logoutBtn}>
-            <Text style={profileStyles.btnText}>ログアウト</Text>
-          </TouchableOpacity>
+          {SignOut()}
         </View>
 
 

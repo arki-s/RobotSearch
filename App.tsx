@@ -9,6 +9,24 @@ import Login from './App/LoginScreen/Login';
 import TabNavigation from './App/Navigations/TabNavigation';
 import { useFonts } from 'expo-font';
 import { ToastProvider } from 'react-native-toast-notifications';
+import * as SecureStore from "expo-secure-store";
+
+const tokenCache = {
+  getToken(key: string) {
+    try {
+      return SecureStore.getItemAsync(key);
+    } catch (err) {
+      return null;
+    }
+  },
+  saveToken(key: string, value: string) {
+    try {
+      return SecureStore.setItemAsync(key, value);
+    } catch (err) {
+      return null;
+    }
+  },
+};
 
 
 export default function App() {
@@ -17,8 +35,8 @@ export default function App() {
   });
 
   return (
-    <ClerkProvider publishableKey={(CLERK_PUBLISHABLE_KEY).trim()}>
-      <View style={styles.container}>
+    <ClerkProvider publishableKey={(CLERK_PUBLISHABLE_KEY).trim()} tokenCache={tokenCache}>
+      <SafeAreaView style={styles.container}>
         <ToastProvider>
           {/* <GestureHandlerRootView> */}
 
@@ -34,7 +52,7 @@ export default function App() {
 
           {/* </GestureHandlerRootView> */}
         </ToastProvider>
-      </View>
+      </SafeAreaView>
     </ClerkProvider>
   );
 }
