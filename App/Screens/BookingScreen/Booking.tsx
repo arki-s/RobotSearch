@@ -69,6 +69,7 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
         animationType: "zoom-in",
       });
 
+      // ↓これは機能してないので削除していいかも
       getNotCompletedBooking();
 
       setDeleteModal(false);
