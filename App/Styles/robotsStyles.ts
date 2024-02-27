@@ -187,20 +187,6 @@ export const robotsStyles = ScaledSheet.create({
     marginVertical:8,
   },
 
-  closeModal:{
-    position:'absolute',
-    top:50,
-    right:10,
-  },
-
-  bookingTitle:{
-    fontSize:24,
-    fontFamily:'kaisei',
-    textAlign:'center',
-    color:Colors.PRIMARY,
-    marginTop:50,
-  },
-
   calendarContainer:{
     marginTop:'10@vs',
     borderRadius:15,

@@ -75,4 +75,18 @@ export const globalStyles = ScaledSheet.create({
     fontFamily:'kaisei',
   },
 
+  modalTitle:{
+    fontSize:24,
+    fontFamily:'kaisei',
+    textAlign:'center',
+    color:Colors.PRIMARY,
+    marginTop:50,
+  },
+
+  closeModal:{
+    position:'absolute',
+    top:50,
+    right:10,
+  },
+
 })

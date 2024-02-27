@@ -14,6 +14,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import { useUser } from "@clerk/clerk-expo";
 import toast from 'react-native-toast-notifications/lib/typescript/toast';
 import { useToast } from "react-native-toast-notifications";
+import { globalStyles } from '../../Styles/globalStyles';
 
 type DetailsProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotDetails'>;
@@ -158,8 +159,8 @@ export default function RobotDetails({ navigation, route }: DetailsProps) {
       <Modal animationType='slide'>
         <View>
           <View>
-            <Text style={robotsStyles.bookingTitle}>予約</Text>
-            <TouchableOpacity onPress={() => setBookingModal(false)} style={robotsStyles.closeModal}>
+            <Text style={globalStyles.modalTitle}>予約</Text>
+            <TouchableOpacity onPress={() => setBookingModal(false)} style={globalStyles.closeModal}>
               <AntDesign name="closesquareo" size={30} color={Colors.PRIMARY} />
             </TouchableOpacity>
           </View>

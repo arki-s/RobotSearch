@@ -108,7 +108,8 @@ export const bookingStyles = ScaledSheet.create({
 
   modalContainer:{
     alignItems:'center',
-    marginTop:'300@vs',
+    flex:1,
+    backgroundColor:'rgba(0, 0, 0, 0.5)',
   },
 
   modalSubContainer:{
@@ -116,6 +117,7 @@ export const bookingStyles = ScaledSheet.create({
     borderWidth:3,
     borderColor:Colors.SECONDARY,
     backgroundColor:Colors.WHITE,
+    marginTop:'300@vs',
     width:'300@s',
     height:'150@vs',
     padding:'20@msr',
@@ -152,6 +154,72 @@ export const bookingStyles = ScaledSheet.create({
     textAlign:'center',
     fontFamily:'kaisei',
     color:Colors.WHITE,
+  },
+
+  modalReviewContainer:{
+    backgroundColor:Colors.WHITE,
+    borderRadius:10,
+    borderWidth:3,
+    borderColor:Colors.SECONDARY,
+    marginTop:'150@vs',
+    width:'80%',
+    height:'500@vs',
+    padding:'20@msr',
+  },
+
+  reviewTitle:{
+    fontSize:24,
+    fontFamily:'kaisei',
+    textAlign:'center',
+    color:Colors.PRIMARY,
+    marginTop:10,
+  },
+
+  closeReviewModal:{
+    position:'absolute',
+    top:10,
+    right:10,
+  },
+
+  reviewBtn:{
+    alignSelf:'center',
+    backgroundColor:Colors.PRIMARY,
+    borderRadius:99,
+    paddingHorizontal:12,
+    paddingVertical:8,
+  },
+
+  reviewBtnText:{
+    color:Colors.WHITE,
+    fontFamily:'kaisei',
+    textAlign:'center',
+    fontSize:20,
+  },
+
+  reviewNMInput:{
+    marginVertical:'10@vs',
+    alignSelf:'center',
+    padding:5,
+    width:'160@s',
+    height:'30@vs',
+    borderRadius:10,
+    backgroundColor:Colors.SECONDARY_LIGHT,
+    fontFamily:'kaisei',
+    fontSize:16,
+  },
+
+  reviewCInput:{
+    borderColor:Colors.SECONDARY,
+    alignSelf:'center',
+    padding:5,
+    width:'220@s',
+    height:'180@vs',
+    borderRadius:10,
+    backgroundColor:Colors.SECONDARY_LIGHT,
+    fontFamily:'kaisei',
+    fontSize:16,
+    marginTop:'10@vs',
+    marginBottom:`20@vs`,
   }
 
 })
