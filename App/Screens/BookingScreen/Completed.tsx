@@ -25,6 +25,9 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
     { label: '⭐️⭐️⭐️⭐️', value: '4' },
     { label: '⭐️⭐️⭐️⭐️⭐️', value: '5' }
   ]);
+  const [name, setName] = useState<string | null>(null);
+  const [comment, setComment] = useState<string | null>(null);
+  const [date, setDate] = useState<string>("");
 
   useEffect(() => {
     getCompletedBooking();
@@ -88,7 +91,7 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
           <TouchableOpacity onPress={() => setReviewModal(false)} style={bookingStyles.closeReviewModal}>
             <AntDesign name="closesquareo" size={30} color={Colors.PRIMARY} />
           </TouchableOpacity>
-          <TextInput placeholder='ニックネーム' style={bookingStyles.reviewNMInput} />
+          <TextInput placeholder='ニックネーム' onChangeText={(name) => setName(name)} value={name} style={bookingStyles.reviewNMInput} />
           <View style={{ alignItems: 'center', marginVertical: 10, zIndex: 1 }}>
             <DropDownPicker
               open={open}
@@ -107,7 +110,8 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
               zIndex={1000}
             />
           </View>
-          <TextInput placeholder='レビューコメント' multiline={true} numberOfLines={5} style={bookingStyles.reviewCInput} />
+          <TextInput placeholder='レビューコメント' multiline={true} numberOfLines={5}
+            onChangeText={(comment) => setComment(comment)} value={comment} style={bookingStyles.reviewCInput} />
           <TouchableOpacity style={bookingStyles.reviewBtn}>
             <Text style={bookingStyles.reviewBtnText}>レビューを投稿する</Text>
           </TouchableOpacity>
@@ -115,6 +119,10 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
       </View>
     </Modal>
   );
+
+  const createReview = () => {
+
+  }
 
 
   return (

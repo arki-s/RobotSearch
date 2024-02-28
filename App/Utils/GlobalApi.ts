@@ -246,9 +246,31 @@ const autoUpdateBooking = async(id:string) =>{
   return result
 }
 
+const createReview = async(name:string, date:string, rating:number, comment:string, userEmail:string, robotId:string)=>{
+  const mutationQuery = gql`
+  mutation createReview {
+    createReview(
+      data: {
+        name: "`+name+`",
+        date: "`+date+`",
+        rating: "`+rating+`",
+        comment: "`+comment+`",
+        userEmail: "`+userEmail+`",
+        robot: {connect: {id: "`+robotId+`"}}}
+    ) {
+      id
+    }
+    publishManyReviews(to: PUBLISHED) {
+      count
+    }
+  }
+  `
+  const result:any = await request(MASTER_URL, mutationQuery);
+  return result
+}
 
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
   getRobotById, getReviewByRobot, createBooking, getNotCompletedBooking,
-  getCompletedBooking, deleteBooking, autoUpdateBooking,
+  getCompletedBooking, deleteBooking, autoUpdateBooking, createReview,
 }
