@@ -10,6 +10,7 @@ import Colors from '../../Styles/Colors'
 import { globalStyles } from '../../Styles/globalStyles'
 import { AntDesign } from '@expo/vector-icons';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useToast } from "react-native-toast-notifications";
 
 
 export default function Completed({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
@@ -19,15 +20,16 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(0);
   const [items, setItems] = useState([
-    { label: '⭐️', value: '1' },
-    { label: '⭐️⭐️', value: '2' },
-    { label: '⭐️⭐️⭐️', value: '3' },
-    { label: '⭐️⭐️⭐️⭐️', value: '4' },
-    { label: '⭐️⭐️⭐️⭐️⭐️', value: '5' }
+    { label: '⭐️', value: 1 },
+    { label: '⭐️⭐️', value: 2 },
+    { label: '⭐️⭐️⭐️', value: 3 },
+    { label: '⭐️⭐️⭐️⭐️', value: 4 },
+    { label: '⭐️⭐️⭐️⭐️⭐️', value: 5 }
   ]);
   const [name, setName] = useState<string | null>(null);
   const [comment, setComment] = useState<string | null>(null);
-  const [date, setDate] = useState<string>("");
+  const [robot, setRobot] = useState<string | null>(null);
+  const toast = useToast();
 
   useEffect(() => {
     getCompletedBooking();
@@ -68,7 +70,7 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
           <Text style={bookingStyles.text}>料金　　　　　：{(bk["totalFee"] as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
           <Text style={bookingStyles.text}>コメント：{bk["comment"]}</Text>
         </View>
-        <TouchableOpacity style={bookingStyles.cancelBtn} onPress={() => setReviewModal(true)}>
+        <TouchableOpacity style={bookingStyles.cancelBtn} onPress={() => { setRobot(bk["robot"]["id"]); setReviewModal(true); }}>
           <Text style={bookingStyles.cancelText}>レビューする</Text>
         </TouchableOpacity>
       </View>
@@ -80,6 +82,18 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
   ) : (
     <View>
       <Text style={bookingStyles.noBookingsText}>完了済みの予約がありません。</Text>
+    </View>
+  );
+
+  const completeCheck = (name != null && comment != null && value != null) ? (
+    <TouchableOpacity style={bookingStyles.reviewBtn} onPress={() => createReview()}>
+      <Text style={bookingStyles.reviewBtnText}>レビューを投稿する</Text>
+    </TouchableOpacity>
+  ) : (
+    <View style={{ opacity: 0.5 }}>
+      <View style={bookingStyles.reviewBtn} >
+        <Text style={bookingStyles.reviewBtnText}>レビューを投稿する</Text>
+      </View>
     </View>
   );
 
@@ -112,16 +126,36 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
           </View>
           <TextInput placeholder='レビューコメント' multiline={true} numberOfLines={5}
             onChangeText={(comment) => setComment(comment)} value={comment} style={bookingStyles.reviewCInput} />
-          <TouchableOpacity style={bookingStyles.reviewBtn}>
-            <Text style={bookingStyles.reviewBtnText}>レビューを投稿する</Text>
-          </TouchableOpacity>
+          {completeCheck}
         </View>
       </View>
     </Modal>
   );
 
   const createReview = () => {
+    if (!name || !value || !comment || !robot || !user?.primaryEmailAddress) return null;
+    const date = new Date;
+    const robotId = robot;
 
+    GlobalApi.createReview(name, date.toDateString(), value, comment, user.primaryEmailAddress.emailAddress, robotId).then((resp) => {
+      console.log("resp", resp);
+
+      toast.show("新しいレビューを投稿しました！", {
+        type: "success",
+        placement: "bottom",
+        duration: 5000,
+        offset: 30,
+        animationType: "zoom-in",
+      });
+
+      setComment(null);
+      setName(null);
+      setRobot(null);
+      setReviewModal(false);
+    }).catch((error) => {
+      console.log("API call error!");
+      console.log(error.message);
+    })
   }
 
 

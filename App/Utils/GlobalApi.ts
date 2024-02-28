@@ -253,7 +253,7 @@ const createReview = async(name:string, date:string, rating:number, comment:stri
       data: {
         name: "`+name+`",
         date: "`+date+`",
-        rating: "`+rating+`",
+        rating: `+rating+`,
         comment: "`+comment+`",
         userEmail: "`+userEmail+`",
         robot: {connect: {id: "`+robotId+`"}}}
