@@ -30,9 +30,11 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
   const [comment, setComment] = useState<string | null>(null);
   const [robot, setRobot] = useState<string | null>(null);
   const toast = useToast();
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     getCompletedBooking();
+    getReviewsForCheck();
   }, [])
 
   const getCompletedBooking = () => {
@@ -47,11 +49,38 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
     })
   }
 
+  const getReviewsForCheck = () => {
+    if (user?.primaryEmailAddress?.emailAddress === undefined) return;
+
+    GlobalApi.getReviewsDone(user?.primaryEmailAddress?.emailAddress).then((resp) => {
+      console.log("resp", resp);
+      setReviews(resp.reviews);
+    }).catch((error) => {
+      console.log("API call error!!");
+      console.log(error.message);
+    })
+
+  }
+
   function HandleBookingPress() {
     navigation.navigate('Booking');
   }
 
+
+  let reviewed: boolean = false;
+
   const bookingList = bookings.map((bk) => {
+    if (reviews.length > 0) {
+      reviews.map((rv) => {
+        if (rv["booking"]["id"] === bk["id"]) {
+          console.log(rv["booking"]["id"]);
+          console.log(bk["id"]);
+          reviewed = true;
+        } else {
+          reviewed = false;
+        }
+      })
+    }
     return (
       <View key={bk["id"]} style={bookingStyles.listContainer}>
         <View style={{ display: 'flex', flexDirection: 'row', gap: 10, }}>
@@ -70,9 +99,17 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
           <Text style={bookingStyles.text}>料金　　　　　：{(bk["totalFee"] as number).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 円</Text>
           <Text style={bookingStyles.text}>コメント：{bk["comment"]}</Text>
         </View>
-        <TouchableOpacity style={bookingStyles.cancelBtn} onPress={() => { setRobot(bk["robot"]["id"]); setReviewModal(true); }}>
-          <Text style={bookingStyles.cancelText}>レビューする</Text>
-        </TouchableOpacity>
+        {reviewed ? (
+          <View style={{ opacity: 0.5 }}>
+            <View style={bookingStyles.cancelBtn} >
+              <Text style={bookingStyles.cancelText}>レビュー済み</Text>
+            </View>
+          </View>
+        ) : (
+          <TouchableOpacity style={bookingStyles.cancelBtn} onPress={() => { setRobot(bk["robot"]["id"]); setReviewModal(true); }}>
+            <Text style={bookingStyles.cancelText}>レビューする</Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   })

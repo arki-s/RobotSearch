@@ -271,8 +271,24 @@ const createReview = async(name:string, date:string, rating:number, comment:stri
   return result
 }
 
+const getReviewsDone = async(userEmail:string)=>{
+  const query = gql`
+  query getReviewsDone {
+    reviews(where: {userEmail: "`+userEmail+`"}) {
+      booking {
+        id
+      }
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
   getRobotById, getReviewByRobot, createBooking, getNotCompletedBooking,
   getCompletedBooking, deleteBooking, autoUpdateBooking, createReview,
+  getReviewsDone,
 }
