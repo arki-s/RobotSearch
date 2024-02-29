@@ -24,7 +24,7 @@ export default function Reviews() {
   const reviewList = reviews.map((rv) => {
     return (
       <TouchableOpacity style={homeStyles.reviewContainer} key={rv["id"]}>
-        <Text style={homeStyles.reviewTextName}>{rv["robot"]["name"]}</Text>
+        <Text style={homeStyles.reviewTextName}>{rv["booking"]["robot"]["name"]}</Text>
         <Text style={homeStyles.reviewText}>{("⭐️").repeat(rv["rating"])}</Text>
         <Text style={homeStyles.reviewText}>{rv["name"]}</Text>
         <Text numberOfLines={3} style={homeStyles.reviewText}>{rv["comment"]}</Text>

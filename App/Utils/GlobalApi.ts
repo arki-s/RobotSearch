@@ -68,8 +68,10 @@ const getReview = async ()=>{
       comment
       rating
       date
-      robot {
-        name
+      booking {
+        robot {
+          name
+        }
       }
     }
   }
@@ -128,7 +130,7 @@ const getRobotById = async(id:string)=>{
 const getReviewByRobot = async(id:string)=>{
   const query = gql`
   query getReviewByRobot {
-    reviews(where: {robot: {id: "`+id+`"}}) {
+    reviews(where: {booking: {robot: {id: "`+id+`"}}}) {
       id
       date
       rating
