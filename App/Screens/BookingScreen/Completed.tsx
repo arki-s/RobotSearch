@@ -73,8 +73,6 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
     if (reviews.length > 0) {
       reviews.map((rv) => {
         if (rv["booking"]["id"] === bk["id"]) {
-          console.log(rv["booking"]["id"]);
-          console.log(bk["id"]);
           reviewed = true;
         } else {
           reviewed = false;

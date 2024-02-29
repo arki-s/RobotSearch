@@ -286,9 +286,62 @@ const getReviewsDone = async(userEmail:string)=>{
   return result
 }
 
+const getAllRobots = async()=>{
+  const query = gql`
+  query getAllRobots {
+    robots {
+      cost
+      about
+      contactPerson
+      email
+      id
+      name
+      images {
+        url
+      }
+      category {
+        type
+      }
+    }
+  }
+  `
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
+const getSearchedRobots = async(searchWord:string)=>{
+  const query = gql`
+  query getRobotCategory {
+    robots(
+      where: {name_contains: "`+searchWord+`",
+      OR: {about_contains: "`+searchWord+`",
+      OR: {contactPerson_contains: "`+searchWord+`",
+      OR: {category: {type_contains: "`+searchWord+`"},
+      OR: {cost_contains: "`+searchWord+`",
+      OR: {email_contains: "`+searchWord+`"}}}}}}
+    ) {
+      cost
+      about
+      contactPerson
+      email
+      id
+      name
+      images {
+        url
+      }
+      category {
+        type
+      }
+    }
+  }
+  `
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
   getRobotById, getReviewByRobot, createBooking, getNotCompletedBooking,
   getCompletedBooking, deleteBooking, autoUpdateBooking, createReview,
-  getReviewsDone,
+  getReviewsDone, getAllRobots, getSearchedRobots
 }
