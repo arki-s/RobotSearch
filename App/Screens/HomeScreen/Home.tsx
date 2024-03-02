@@ -26,7 +26,7 @@ export default function Home({ navigation }: { navigation: NativeStackNavigation
           <Text style={globalStyles.headerText}>Robot Search</Text>
         </View>
         <View style={globalStyles.headerSub2}>
-          <TextInput placeholder='検索' style={globalStyles.textInput} value={searchWord} onChangeText={(searchWord) => setSearchWord(searchWord)} />
+          <TextInput placeholder='ロボット名検索' style={globalStyles.textInput} value={searchWord} onChangeText={(searchWord) => setSearchWord(searchWord)} />
           <TouchableOpacity style={globalStyles.searchIcon} onPress={HandleSearchPress}>
             <FontAwesome
               name="search"

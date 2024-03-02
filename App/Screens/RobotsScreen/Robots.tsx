@@ -1,4 +1,4 @@
-import { View, Text, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
+import { View, Text, Image, TextInput, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Robot, RootStackParamList } from '../../../types'
@@ -15,11 +15,22 @@ type RobotsProts = {
 }
 
 export default function Robots({ navigation, route }: RobotsProts) {
+  const [isLoading, setIsLoading] = useState(false);
   const [robots, setRobots] = useState([]);
-  console.log(route.params.searchWord);
+  const [allRobots, setAllRobots] = useState([]);
+  const [search, setSearch] = useState("");
 
-  if (route.params.searchWord === "" || route.params.searchWord === null) {
+  useEffect(() => {
+    setIsLoading(true);
+  }, [])
+
+  const HandleSearch = (word: string) => {
+    setSearch(word);
+  }
+
+  if (route.params == undefined || route.params.searchWord === undefined || route.params.searchWord === "" || route.params.searchWord === null) {
     console.log("全部");
+    console.log(typeof route.params.searchWord);
 
     useEffect(() => {
       getAllRobots();
@@ -29,6 +40,7 @@ export default function Robots({ navigation, route }: RobotsProts) {
       GlobalApi.getAllRobots().then((resp) => {
         // console.log("resp", resp);
         setRobots(resp.robots);
+        setIsLoading(false);
       }).catch((error) => {
         console.log("API call error!!");
         console.log(error.message);
@@ -41,16 +53,26 @@ export default function Robots({ navigation, route }: RobotsProts) {
 
     const getSearchedRobots = () => {
       console.log("一部");
+      console.log(route.params.searchWord);
       if (route.params.searchWord === undefined) return null;
       GlobalApi.getSearchedRobots(route.params.searchWord).then((resp) => {
         console.log("resp", resp);
         setRobots(resp.robots);
+        setIsLoading(false);
       }).catch((error) => {
         console.log("API call error!!");
         console.log(error.message);
       })
     }
 
+  }
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={"large"} color={Colors.PRIMARY} />
+      </View>
+    );
   }
 
 
@@ -108,6 +130,10 @@ export default function Robots({ navigation, route }: RobotsProts) {
     </View>
   ) : (<Text style={robotsStyles.smallListNone}>ロボットの登録がありません。</Text>);
 
+  function HandleSearchPress() {
+    navigation.navigate("Robots", { searchWord: search });
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <View style={globalStyles.header}>
@@ -115,14 +141,17 @@ export default function Robots({ navigation, route }: RobotsProts) {
           <Text style={robotsStyles.headerTextR}>ロボット一覧</Text>
         </View>
         <View style={globalStyles.headerSub2}>
-          <TextInput placeholder='検索' style={globalStyles.textInput} />
-          <TouchableOpacity style={globalStyles.searchIcon}>
+          <TextInput placeholder='ロボット名検索' onChangeText={(word) => HandleSearch(word)}
+            value={search} autoCapitalize='none' clearButtonMode='always'
+            autoCorrect={false}
+            style={globalStyles.textInput} />
+          {/* <TouchableOpacity style={globalStyles.searchIcon} onPress={HandleSearchPress}>
             <FontAwesome
               name="search"
               size={20}
               color={Colors.PRIMARY}
             />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
       <ScrollView>

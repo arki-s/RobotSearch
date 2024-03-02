@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, Image, Modal } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Image, Modal, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../types'
@@ -15,8 +15,10 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
   const [deleteModal, setDeleteModal] = useState(false);
   const [deleteBooking, setDeleteBooking] = useState<string | null>(null);
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(false);
     getNotCompletedBooking();
   }, [])
 
@@ -26,6 +28,7 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
     GlobalApi.getNotCompletedBooking(user?.primaryEmailAddress?.emailAddress).then((resp) => {
       // console.log("resp", resp["bookings"]);
       setBookings(resp["bookings"]);
+      setIsLoading(false);
     }).catch((error) => {
       console.log("API call error!");
       console.log(error.message);
@@ -125,6 +128,14 @@ export default function Booking({ navigation }: { navigation: NativeStackNavigat
       <Text style={bookingStyles.noBookingsText}>予約がありません。</Text>
     </View>
   );
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={"large"} color={Colors.PRIMARY} />
+      </View>
+    )
+  }
 
   return (
     <View style={bookingStyles.container}>

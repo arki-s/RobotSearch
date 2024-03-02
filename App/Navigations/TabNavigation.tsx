@@ -21,7 +21,7 @@ export default function TabNavigation() {
           <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Home</Text>),
         tabBarIcon: ({ color, size }) => (<FontAwesome name="home" size={size} color={color} />)
       }} />
-      <Tab.Screen name="Robots" component={Robots} searchWord={""} options={{
+      <Tab.Screen name="Robots" component={Robots} options={{
         tabBarLabel: ({ color }) => (
           <Text style={{ color: color, fontSize: 12, marginTop: -7 }}>Robots</Text>),
         tabBarIcon: ({ color, size }) => (<FontAwesome5 name="robot" size={size} color={color} />)

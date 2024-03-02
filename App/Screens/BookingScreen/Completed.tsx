@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, Image, Modal, Touchable, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, ScrollView, Image, Modal, Touchable, TextInput, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../../types'
@@ -31,8 +31,10 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
   const [robot, setRobot] = useState<string | null>(null);
   const toast = useToast();
   const [reviews, setReviews] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     getCompletedBooking();
     getReviewsForCheck();
   }, [])
@@ -43,6 +45,7 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
     GlobalApi.getCompletedBooking(user?.primaryEmailAddress?.emailAddress).then((resp) => {
       // console.log("resp", resp["bookings"]);
       setBookings(resp["bookings"]);
+      setIsLoading(false);
     }).catch((error) => {
       console.log("API call error!");
       console.log(error.message);
@@ -191,6 +194,14 @@ export default function Completed({ navigation }: { navigation: NativeStackNavig
       console.log("API call error!");
       console.log(error.message);
     })
+  }
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={"large"} color={Colors.PRIMARY} />
+      </View>
+    );
   }
 
 

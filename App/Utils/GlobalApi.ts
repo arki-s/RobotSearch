@@ -313,12 +313,7 @@ const getSearchedRobots = async(searchWord:string)=>{
   const query = gql`
   query getRobotCategory {
     robots(
-      where: {name_contains: "`+searchWord+`",
-      OR: {about_contains: "`+searchWord+`",
-      OR: {contactPerson_contains: "`+searchWord+`",
-      OR: {category: {type_contains: "`+searchWord+`"},
-      OR: {cost_contains: "`+searchWord+`",
-      OR: {email_contains: "`+searchWord+`"}}}}}}
+      where: {name_contains: "`+searchWord+`"}
     ) {
       cost
       about
