@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, Image, TextInput, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import { homeStyles } from '../../Styles/homeStyles'
 import { FontAwesome } from "@expo/vector-icons";
 import Colors from '../../Styles/Colors';
@@ -12,6 +12,11 @@ import { RootStackParamList } from '../../../types';
 import { globalStyles } from '../../Styles/globalStyles';
 
 export default function Home({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
+  const [searchWord, setSearchWord] = useState<string>("");
+
+  function HandleSearchPress() {
+    navigation.navigate("Robots", { searchWord: searchWord });
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -21,8 +26,8 @@ export default function Home({ navigation }: { navigation: NativeStackNavigation
           <Text style={globalStyles.headerText}>Robot Search</Text>
         </View>
         <View style={globalStyles.headerSub2}>
-          <TextInput placeholder='検索' style={globalStyles.textInput} />
-          <TouchableOpacity style={globalStyles.searchIcon}>
+          <TextInput placeholder='検索' style={globalStyles.textInput} value={searchWord} onChangeText={(searchWord) => setSearchWord(searchWord)} />
+          <TouchableOpacity style={globalStyles.searchIcon} onPress={HandleSearchPress}>
             <FontAwesome
               name="search"
               size={20}

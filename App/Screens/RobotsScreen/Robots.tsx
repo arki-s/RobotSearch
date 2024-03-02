@@ -7,23 +7,53 @@ import { FontAwesome } from "@expo/vector-icons";
 import Colors from '../../Styles/Colors';
 import { robotsStyles } from '../../Styles/robotsStyles';
 import GlobalApi from '../../Utils/GlobalApi';
+import { RouteProp } from '@react-navigation/native';
 
-export default function Robots({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
+type RobotsProts = {
+  navigation: NativeStackNavigationProp<RootStackParamList, 'Robots'>;
+  route: RouteProp<RootStackParamList, 'Robots'>;
+}
+
+export default function Robots({ navigation, route }: RobotsProts) {
   const [robots, setRobots] = useState([]);
+  console.log(route.params.searchWord);
 
-  useEffect(() => {
-    getAllRobots();
-  }, [])
+  if (route.params.searchWord === "" || route.params.searchWord === null) {
+    console.log("全部");
 
-  const getAllRobots = () => {
-    GlobalApi.getAllRobots().then((resp) => {
-      // console.log("resp", resp);
-      setRobots(resp.robots);
-    }).catch((error) => {
-      console.log("API call error!!");
-      console.log(error.message);
-    })
+    useEffect(() => {
+      getAllRobots();
+    }, [])
+
+    const getAllRobots = () => {
+      GlobalApi.getAllRobots().then((resp) => {
+        // console.log("resp", resp);
+        setRobots(resp.robots);
+      }).catch((error) => {
+        console.log("API call error!!");
+        console.log(error.message);
+      })
+    }
+  } else {
+    useEffect(() => {
+      getSearchedRobots();
+    }, [])
+
+    const getSearchedRobots = () => {
+      console.log("一部");
+      if (route.params.searchWord === undefined) return null;
+      GlobalApi.getSearchedRobots(route.params.searchWord).then((resp) => {
+        console.log("resp", resp);
+        setRobots(resp.robots);
+      }).catch((error) => {
+        console.log("API call error!!");
+        console.log(error.message);
+      })
+    }
+
   }
+
+
 
   function typeColor(type: string, robot: Robot) {
     if (type === "人型") {
