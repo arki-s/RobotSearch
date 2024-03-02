@@ -1,7 +1,8 @@
 export type RootStackParamList = {
   Overview:undefined;
   Home:undefined;
-  Robots:{searchWord: string | undefined; };
+  // Robots:{searchWord: string | undefined; };
+  Robots:undefined;
   Booking:undefined;
   Bookings:undefined;
   Completed:undefined;

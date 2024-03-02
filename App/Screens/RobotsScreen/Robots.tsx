@@ -3,18 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Robot, RootStackParamList } from '../../../types'
 import { globalStyles } from '../../Styles/globalStyles';
-import { FontAwesome } from "@expo/vector-icons";
 import Colors from '../../Styles/Colors';
 import { robotsStyles } from '../../Styles/robotsStyles';
 import GlobalApi from '../../Utils/GlobalApi';
-import { RouteProp } from '@react-navigation/native';
+import filter from 'lodash.filter';
 
-type RobotsProts = {
-  navigation: NativeStackNavigationProp<RootStackParamList, 'Robots'>;
-  route: RouteProp<RootStackParamList, 'Robots'>;
-}
-
-export default function Robots({ navigation, route }: RobotsProts) {
+export default function Robots({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
   const [isLoading, setIsLoading] = useState(false);
   const [robots, setRobots] = useState([]);
   const [allRobots, setAllRobots] = useState([]);
@@ -22,49 +16,33 @@ export default function Robots({ navigation, route }: RobotsProts) {
 
   useEffect(() => {
     setIsLoading(true);
+    getAllRobots();
   }, [])
+
+  const getAllRobots = () => {
+    GlobalApi.getAllRobots().then((resp) => {
+      // console.log("resp", resp);
+      setRobots(resp.robots);
+      setIsLoading(false);
+    }).catch((error) => {
+      console.log("API call error!!");
+      console.log(error.message);
+    })
+  }
 
   const HandleSearch = (word: string) => {
     setSearch(word);
+    const formattedQuery = word.toLowerCase();
+    const filteredData = filter(allRobots, (robot) => {
+      return contains(robot, formattedQuery);
+    });
+    setRobots(filteredData);
   }
 
-  if (route.params == undefined || route.params.searchWord === undefined || route.params.searchWord === "" || route.params.searchWord === null) {
-    console.log("全部");
-    console.log(typeof route.params.searchWord);
+  const contains = ({ name }: { name: string }, word: string) => {
+    if (name.includes(word)) return true;
 
-    useEffect(() => {
-      getAllRobots();
-    }, [])
-
-    const getAllRobots = () => {
-      GlobalApi.getAllRobots().then((resp) => {
-        // console.log("resp", resp);
-        setRobots(resp.robots);
-        setIsLoading(false);
-      }).catch((error) => {
-        console.log("API call error!!");
-        console.log(error.message);
-      })
-    }
-  } else {
-    useEffect(() => {
-      getSearchedRobots();
-    }, [])
-
-    const getSearchedRobots = () => {
-      console.log("一部");
-      console.log(route.params.searchWord);
-      if (route.params.searchWord === undefined) return null;
-      GlobalApi.getSearchedRobots(route.params.searchWord).then((resp) => {
-        console.log("resp", resp);
-        setRobots(resp.robots);
-        setIsLoading(false);
-      }).catch((error) => {
-        console.log("API call error!!");
-        console.log(error.message);
-      })
-    }
-
+    return false;
   }
 
   if (isLoading) {
@@ -130,10 +108,6 @@ export default function Robots({ navigation, route }: RobotsProts) {
     </View>
   ) : (<Text style={robotsStyles.smallListNone}>ロボットの登録がありません。</Text>);
 
-  function HandleSearchPress() {
-    navigation.navigate("Robots", { searchWord: search });
-  }
-
   return (
     <View style={{ flex: 1 }}>
       <View style={globalStyles.header}>
@@ -145,13 +119,6 @@ export default function Robots({ navigation, route }: RobotsProts) {
             value={search} autoCapitalize='none' clearButtonMode='always'
             autoCorrect={false}
             style={globalStyles.textInput} />
-          {/* <TouchableOpacity style={globalStyles.searchIcon} onPress={HandleSearchPress}>
-            <FontAwesome
-              name="search"
-              size={20}
-              color={Colors.PRIMARY}
-            />
-          </TouchableOpacity> */}
         </View>
       </View>
       <ScrollView>

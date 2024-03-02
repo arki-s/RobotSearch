@@ -12,11 +12,37 @@ export const homeStyles = ScaledSheet.create({
   container:{
     padding:'5@msr',
     flexGrow:1,
-    // display:'flex',
-    // flexDirection:'column',
-    // justifyContent:'space-around',
-    // backgroundColor:'#000000',
-    // height:csheight,
+  },
+
+  header:{
+    backgroundColor:Colors.PRIMARY,
+    height:'100@vs',
+    width:'100%',
+    alignItems:'center',
+    borderBottomLeftRadius:25,
+    borderBottomRightRadius:25,
+  },
+
+  headerSub:{
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'center',
+    gap:20,
+    alignItems:'center',
+    marginVertical:'16@vs',
+  },
+
+  headerLogo:{
+    width:'55@vs',
+    height:'55@vs',
+    objectFit:'contain',
+
+  },
+
+  headerText:{
+    color:Colors.WHITE,
+    fontSize:'36@msr',
+    fontFamily:'kaisei',
   },
 
   primaryText:{

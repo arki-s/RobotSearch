@@ -12,29 +12,24 @@ import { RootStackParamList } from '../../../types';
 import { globalStyles } from '../../Styles/globalStyles';
 
 export default function Home({ navigation }: { navigation: NativeStackNavigationProp<RootStackParamList> }) {
-  const [searchWord, setSearchWord] = useState<string>("");
-
-  function HandleSearchPress() {
-    navigation.navigate("Robots", { searchWord: searchWord });
-  }
 
   return (
     <View style={{ flex: 1 }}>
-      <View style={globalStyles.header}>
-        <View style={globalStyles.headerSub}>
-          <Image source={require('../../../assets/images/ロボットアイコン.png')} style={globalStyles.headerLogo} />
-          <Text style={globalStyles.headerText}>Robot Search</Text>
+      <View style={homeStyles.header}>
+        <View style={homeStyles.headerSub}>
+          <Image source={require('../../../assets/images/ロボットアイコン.png')} style={homeStyles.headerLogo} />
+          <Text style={homeStyles.headerText}>Robot Search</Text>
         </View>
-        <View style={globalStyles.headerSub2}>
-          <TextInput placeholder='ロボット名検索' style={globalStyles.textInput} value={searchWord} onChangeText={(searchWord) => setSearchWord(searchWord)} />
-          <TouchableOpacity style={globalStyles.searchIcon} onPress={HandleSearchPress}>
+        {/* <View style={globalStyles.headerSub2}> */}
+        {/* <TextInput placeholder='ロボット名検索' style={globalStyles.textInput} />
+          <TouchableOpacity style={globalStyles.searchIcon} >
             <FontAwesome
               name="search"
               size={20}
               color={Colors.PRIMARY}
             />
-          </TouchableOpacity>
-        </View>
+          </TouchableOpacity> */}
+        {/* </View> */}
       </View>
 
 
@@ -45,6 +40,6 @@ export default function Home({ navigation }: { navigation: NativeStackNavigation
         <Reviews />
       </ScrollView>
 
-    </View>
+    </View >
   )
 }

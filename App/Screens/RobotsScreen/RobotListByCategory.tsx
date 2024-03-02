@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { View, Text, ScrollView, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Robot, RootStackParamList } from '../../../types'
@@ -6,6 +6,7 @@ import { RouteProp } from '@react-navigation/native'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { robotsStyles } from '../../Styles/robotsStyles'
 import GlobalApi from '../../Utils/GlobalApi'
+import Colors from '../../Styles/Colors'
 
 type CategoryProps = {
   navigation: NativeStackNavigationProp<RootStackParamList, 'RobotListByCategory'>;
@@ -14,8 +15,10 @@ type CategoryProps = {
 
 export default function RobotListByCategory({ navigation, route }: CategoryProps) {
   const [robots, setRobots] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     robotsList();
   }, [])
 
@@ -24,6 +27,7 @@ export default function RobotListByCategory({ navigation, route }: CategoryProps
     GlobalApi.getRobotByCategory(route.params.category).then((resp) => {
       // console.log("resp", resp);
       setRobots(resp.robots);
+      setIsLoading(false);
     }).catch((error) => {
       console.log("API call error!!");
       console.log(error.message);
@@ -83,6 +87,14 @@ export default function RobotListByCategory({ navigation, route }: CategoryProps
       {List}
     </View>
   ) : (<Text style={robotsStyles.smallListNone}>該当のロボット登録がありません。</Text>);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size={"large"} color={Colors.PRIMARY} />
+      </View>
+    );
+  }
 
 
   return (
