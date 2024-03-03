@@ -20,16 +20,6 @@ export default function Home({ navigation }: { navigation: NativeStackNavigation
           <Image source={require('../../../assets/images/ロボットアイコン.png')} style={homeStyles.headerLogo} />
           <Text style={homeStyles.headerText}>Robot Search</Text>
         </View>
-        {/* <View style={globalStyles.headerSub2}> */}
-        {/* <TextInput placeholder='ロボット名検索' style={globalStyles.textInput} />
-          <TouchableOpacity style={globalStyles.searchIcon} >
-            <FontAwesome
-              name="search"
-              size={20}
-              color={Colors.PRIMARY}
-            />
-          </TouchableOpacity> */}
-        {/* </View> */}
       </View>
 
 

@@ -20,7 +20,7 @@ export default function Profile({ navigation }: { navigation: NativeStackNavigat
   const getReviews = () => {
     if (!user || user.primaryEmailAddress == undefined) return null;
     GlobalApi.getReviewsDone(user.primaryEmailAddress.emailAddress).then((resp) => {
-      console.log("resp", resp.reviews);
+      // console.log("resp", resp.reviews);
       setMyReviews(resp.reviews);
     }).catch((error) => {
       console.log("API call error!");
@@ -31,7 +31,7 @@ export default function Profile({ navigation }: { navigation: NativeStackNavigat
   const getMyBookings = () => {
     if (!user || user.primaryEmailAddress == undefined) return null;
     GlobalApi.getMyBookings(user.primaryEmailAddress.emailAddress).then((resp) => {
-      console.log("resp", resp.bookings);
+      // console.log("resp", resp.bookings);
       setMyBookings(resp.bookings);
     }).catch((error) => {
       console.log("API call error!");

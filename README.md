@@ -14,6 +14,6 @@ React Native 練習用に作成した、気軽にロボットをレンタルで�
 
 - Expo
 - React Native
-- Typescript
+- TypeScript
 - Hygraph (https://hygraph.com/) - Database
 - Clerk (https://clerk.com/) - Login features
