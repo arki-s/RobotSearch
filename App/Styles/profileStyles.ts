@@ -45,11 +45,12 @@ export const profileStyles = ScaledSheet.create({
   dataText:{
     fontFamily:'kaisei',
     fontSize:18,
-    marginBottom:'30@vs',
+    marginBottom:'40@vs',
   },
 
   dataContainer:{
-    padding:'20@msr',
+    paddingHorizontal:'20@msr',
+    paddingVertical:'30@vs',
     borderRadius:10,
     backgroundColor:Colors.WHITE,
     width: '80%',

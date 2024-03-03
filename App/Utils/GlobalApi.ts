@@ -334,9 +334,22 @@ const getSearchedRobots = async(searchWord:string)=>{
   return result
 }
 
+const getMyBookings = async(userEmail:string)=>{
+  const query = gql`
+  query getMyBookings {
+    bookings(where: {userEmail: "`+userEmail+`"}) {
+      id
+    }
+  }
+  `
+
+  const result:any = await request(MASTER_URL, query);
+  return result
+}
+
 export default {
   getSlider, getCategory, getRobot, getReview, getRobotByCategory,
   getRobotById, getReviewByRobot, createBooking, getNotCompletedBooking,
   getCompletedBooking, deleteBooking, autoUpdateBooking, createReview,
-  getReviewsDone, getAllRobots, getSearchedRobots
+  getReviewsDone, getAllRobots, getSearchedRobots, getMyBookings
 }
